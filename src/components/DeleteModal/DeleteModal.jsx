@@ -1,16 +1,11 @@
 import { useState } from 'react'
 import {Button, Modal} from 'react-bootstrap'
 
-export const DeleteModal=()=>{
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+export const DeleteModal=({show, onHide, onClick})=>{
   return (
       <Modal
         show={show}
-        onHide={handleClose}
+        onHide={onHide}
         backdrop="static"
         keyboard={false}
       >
@@ -18,10 +13,10 @@ export const DeleteModal=()=>{
           <Modal.Title>¿Seguro que desea eliminar este curso?</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancelar
+          <Button variant="secondary" onClick={onClick}>
+            No, cancelar
           </Button>
-          <Button variant="primary">Sí, eliminar</Button>
+          <Button variant="danger">Sí, eliminar</Button>
         </Modal.Footer>
       </Modal>
   );
