@@ -1,13 +1,9 @@
-import { useState } from "react"
 import { Table, Button } from "react-bootstrap"
 import { useFetch } from '../../hooks'
-import { DeleteModal } from '../../components'
+import { DeleteCourse, PutCourse } from '../../components'
 
 export const CoursesTable = ()=>{
     const [courses, isLoading] = useFetch()
-    const [isOpen, setIsOpen] = useState(false)
-    const handleClose = () => setIsOpen(false)
-    const handleShow = () => setIsOpen(true)
     return (
         <>
             <Table variant="success">
@@ -36,17 +32,10 @@ export const CoursesTable = ()=>{
                                 <td>{course.course_start_date}</td>
                                 <td>{course.course_finish_date}</td>
                                 <td>
-                                    <Button variant='success'>
-                                        Actualizar
-                                    </Button>
+                                    <PutCourse />
                                 </td>
                                 <td>
-                                    <Button
-                                    variant='danger'
-                                    onClick={handleShow}
-                                    >
-                                        Eliminar
-                                    </Button>
+                                    <DeleteCourse />
                                 </td>
                             </tr>
                             ))
@@ -57,11 +46,6 @@ export const CoursesTable = ()=>{
                 }
             </tbody>
             </Table>
-            <DeleteModal
-                show={isOpen}
-                onHide={handleClose}
-                onClick={handleClose}
-            />
         </>
     )
 }

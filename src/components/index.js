@@ -1,3 +1,4 @@
 export * from './CoursesTable/CoursesTable'
-export * from './DeleteModal/DeleteModal'
+export * from './DeleteCourse/DeleteCourse'
 export * from './NavBar/NavBar'
+export * from './PutCourse/PutCourse'
