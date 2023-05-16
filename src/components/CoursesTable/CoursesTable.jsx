@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap"
 import { useFetch } from '../../hooks'
 import { DeleteCourse, PutCourse } from '../../components'
+import { formatDate } from '../../helpers'
 
 export const CoursesTable = ()=>{
     const [courses, isLoading] = useFetch()
@@ -29,8 +30,8 @@ export const CoursesTable = ()=>{
                             <tr key={course.course_id}>
                                 <td>{course.course_id}</td>
                                 <td>{course.course_name}</td>
-                                <td>{course.course_start_date}</td>
-                                <td>{course.course_finish_date}</td>
+                                <td>{formatDate(course.course_start_date)}</td>
+                                <td>{formatDate(course.course_finish_date)}</td>
                                 <td>
                                     <PutCourse />
                                 </td>
