@@ -1,4 +1,4 @@
-import { Table, Button } from "react-bootstrap"
+import { Table } from "react-bootstrap"
 import { useFetch } from '../../hooks'
 import { DeleteCourse, PutCourse } from '../../components'
 
@@ -35,7 +35,9 @@ export const CoursesTable = ()=>{
                                     <PutCourse />
                                 </td>
                                 <td>
-                                    <DeleteCourse />
+                                    <DeleteCourse
+                                        course_id={course.course_id}
+                                    />
                                 </td>
                             </tr>
                             ))

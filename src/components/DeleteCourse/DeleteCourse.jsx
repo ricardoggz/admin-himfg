@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import {Button, Modal} from 'react-bootstrap'
+import { deleteCourse } from '../../services'
 
-export const DeleteCourse=()=>{
+export const DeleteCourse=({course_id})=>{
   const [isOpen, setIsOpen] = useState(false)
   const handleDeleteModal = () => setIsOpen(!isOpen)
   return (
@@ -25,7 +26,12 @@ export const DeleteCourse=()=>{
             <Button variant="secondary" onClick={handleDeleteModal}>
               No, cancelar
             </Button>
-            <Button variant="danger">Sí, eliminar</Button>
+            <Button
+              variant="danger"
+              onClick={()=>deleteCourse(course_id)}
+            >
+              Sí, eliminar
+            </Button>
           </Modal.Footer>
         </Modal>
       </>
