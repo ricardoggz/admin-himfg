@@ -1,28 +1,56 @@
 import { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 
-export const PutCourse = ({
-  course_name,
-  course_instructor,
-  course_price,
-  course_place,
-  course_image,
-  course_pdf,
-  modality_id,
-  course_start_date,
-  course_finish_date,
-  month_id,
-  course_password,
-  course_vimeo_folder,
-  course_live_video,
-  course_zoom_video,
-  course_zoom_id,
-  course_zoom_password,
-  course_url
-})=>{
+export const PutCourse = ({ propCourse })=>{
+    const [course, setCourse] = useState({
+      course_name : propCourse.course_name,
+      course_instructor: propCourse.course_instructor,
+      course_price: propCourse.course_price,
+      course_place: propCourse.course_place,
+      course_image: propCourse.course_image,
+      course_pdf: propCourse.course_pdf,
+      modality_id:propCourse.modality_id,
+      course_start_date: propCourse.course_start_date,
+      course_finish_date: propCourse.course_finish_date,
+      month_id: propCourse.month_id,
+      course_password: propCourse.course_password,
+      course_vimeo_folder: propCourse.course_vimeo_folder,
+      course_live_video:propCourse.course_live_video,
+      course_zoom_video: propCourse.course_zoom_video,
+      course_zoom_id:propCourse.course_zoom_id,
+      course_zoom_password:propCourse.course_zoom_password,
+      course_url: propCourse.course_url
+    })
     const [isOpen, setIsOpen] = useState(false)
-    const handlePutModal = () => setIsOpen(!isOpen)
-
+    const handlePutModal = () => {
+      setIsOpen(!isOpen)
+      onReset()
+    }
+    const onChange = (evt)=>{
+      setCourse({
+        ...course,
+        [evt.target.name] : evt.target.value
+      })
+    }
+    const onReset = ()=> setCourse({
+      course_name : propCourse.course_name,
+      course_instructor: propCourse.course_instructor,
+      course_price: propCourse.course_price,
+      course_place: propCourse.course_place,
+      course_image: propCourse.course_image,
+      course_pdf: propCourse.course_pdf,
+      modality_id:propCourse.modality_id,
+      course_start_date: propCourse.course_start_date,
+      course_finish_date: propCourse.course_finish_date,
+      month_id: propCourse.month_id,
+      course_password: propCourse.course_password,
+      course_vimeo_folder: propCourse.course_vimeo_folder,
+      course_live_video:propCourse.course_live_video,
+      course_zoom_video: propCourse.course_zoom_video,
+      course_zoom_id:propCourse.course_zoom_id,
+      course_zoom_password:propCourse.course_zoom_password,
+      course_url: propCourse.course_url
+    })
     return (
         <>
           <Button variant="success" onClick={handlePutModal}>
@@ -45,8 +73,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_name}
-                    contentEditable
+                    value={course.course_name}
+                    name='course_name'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -54,8 +83,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_instructor}
-                    contentEditable
+                    value={course.course_instructor}
+                    name='course_instructor'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -63,8 +93,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course_price}
-                    contentEditable
+                    value={course.course_price}
+                    name='course_price'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -72,8 +103,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_place}
-                    contentEditable
+                    value={course.course_place}
+                    name='course_place'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -81,7 +113,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_image}
+                    value={course.course_image}
+                    name='course_image'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -89,7 +123,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_pdf}
+                    value={course.course_pdf}
+                    name='course_pdf'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -97,7 +133,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={modality_id}
+                    value={course.modality_id}
+                    name='modality_id'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -105,7 +143,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={new Date(course_start_date).toLocaleDateString()}
+                    value={new Date(course.course_start_date).toLocaleDateString()}
+                    name='course_start_date'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -113,7 +153,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={new Date(course_finish_date).toLocaleDateString()}
+                    value={new Date(course.course_finish_date).toLocaleDateString()}
+                    name='course_finish_date'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -121,7 +163,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={month_id}
+                    value={course.month_id}
+                    name='month_id'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -129,7 +173,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_password}
+                    value={course.course_password}
+                    name='course_password'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -137,7 +183,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course_vimeo_folder}
+                    value={course.course_vimeo_folder}
+                    name='course_vimeo_folder'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -145,7 +193,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course_live_video}
+                    value={course.course_live_video}
+                    name='course_live_video'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -153,7 +203,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_zoom_video}
+                    value={course.course_zoom_video}
+                    name='course_zoom_video'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -161,7 +213,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course_zoom_id}
+                    value={course.course_zoom_id}
+                    name='course_zoom_id'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -169,7 +223,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_zoom_password}
+                    value={course.course_zoom_password}
+                    name='course_zoom_password'
+                    onChange={onChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -177,7 +233,9 @@ export const PutCourse = ({
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course_url}
+                    value={course.course_url}
+                    name='course_url'
+                    onChange={onChange}
                   />
                 </Form.Group>
               </Form>

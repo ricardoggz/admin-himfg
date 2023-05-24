@@ -30,25 +30,7 @@ export const CoursesTable = ()=>{
                             <td>{formatDate(course.course_start_date)}</td>
                             <td>{formatDate(course.course_finish_date)}</td>
                             <td>
-                                <PutCourse
-                                    course_name={course.course_name}
-                                    course_instructor={course.course_instructor}
-                                    course_price={course.course_price}
-                                    course_place={course.course_place}
-                                    course_image={course.course_image}
-                                    course_pdf={course.course_pdf}
-                                    modality_id={course.modality_id}
-                                    course_start_date={course.course_start_date}
-                                    course_finish_date={course.course_finish_date}
-                                    month_id={course.month_id}
-                                    course_password={course.course_password}
-                                    course_vimeo_folder={course.course_vimeo_folder}
-                                    course_live_video={course.course_live_video}
-                                    course_zoom_video={course.course_zoom_video}
-                                    course_zoom_id={course.course_zoom_id}
-                                    course_zoom_password={course.course_zoom_password}
-                                    course_url={course.course_url}
-                                />
+                                <PutCourse propCourse={course} />
                             </td>
                             <td>
                                 <DeleteCourse
