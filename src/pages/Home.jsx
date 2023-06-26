@@ -1,9 +1,9 @@
-import { CoursesTable } from "../components"
+import { FormLogin } from "../components"
 
 export const Home = ()=>{
     return (
         <>
-            <CoursesTable />
+            <FormLogin />
         </>
     )
 }
