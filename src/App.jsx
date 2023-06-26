@@ -1,10 +1,11 @@
-import { NavBar } from "./components"
-import { Home } from "./pages"
+import { BrowserRouter } from "react-router-dom"
+import { AppRoutes } from "./routes"
+
 function App() {
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }
 
