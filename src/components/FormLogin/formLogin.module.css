@@ -1,6 +1,8 @@
 .formLogin{
     align-items: center;
     display: flex;
+    flex-direction: column;
+    gap:1rem;
     height:80vh;
     justify-content: center;
 }
@@ -11,4 +13,7 @@
 }
 .formLogin button {
     width:100%;
+}
+.formLogin img{
+    width:10rem;
 }
