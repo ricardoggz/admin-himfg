@@ -10,7 +10,7 @@ export const UserProvider = ({children})=>{
     },[])
 
     const login = (user)=>{
-        localStorage.setItem('user', user)
+        localStorage.setItem('user', JSON.stringify(user))
         setUser(JSON.parse(localStorage.getItem('user')))
     }
 

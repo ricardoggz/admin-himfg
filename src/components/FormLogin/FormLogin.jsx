@@ -1,11 +1,14 @@
+import { useContext } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {Button, Form, Image} from 'react-bootstrap'
 import { useOnChange } from '../../hooks'
+import { UserContext } from '../../contexts'
 import { formLogin } from './formLogin.module.css'
 
 export const FormLogin = ()=>{
     const { inputData, onChange, onReset } = useOnChange()
+    const { login } = useContext(UserContext)
     const navigate = useNavigate()
     const onSubmit = async(evt)=>{
         evt.preventDefault()
@@ -17,6 +20,7 @@ export const FormLogin = ()=>{
             if(!resp.data.rows){
                 return alert(resp.data.message)
             }
+            login(inputData)
             return navigate('/dashboard')
         } catch (error) {
             throw new Error(error)
