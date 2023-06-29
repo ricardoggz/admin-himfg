@@ -1,4 +1,6 @@
 import { useContext} from "react"
+import { Routes, Route } from 'react-router-dom'
+import { Inscriptions } from './Inscriptions'
 import { UserContext } from "../contexts/UserContext"
 import { CoursesTable, NavBar, CoursesOptions } from '../components'
 
@@ -18,7 +20,10 @@ export const Dashboard = ()=>{
             return (
                 <>
                     <NavBar />
-                    <CoursesOptions />
+                    <Routes>
+                        <Route path='curso/:id' element={<Inscriptions />}/>
+                        <Route path='/' element={<CoursesOptions />}/>
+                    </Routes>
                 </>
             )
         }
