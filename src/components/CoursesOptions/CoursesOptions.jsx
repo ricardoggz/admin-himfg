@@ -21,7 +21,7 @@ export const CoursesOptions =()=>{
                             <ListGroup.Item
                                 variant="info"
                                 key={course.course_id}>
-                                <Link>
+                                <Link to={`curso/${course.course_id}`}>
                                     {course.course_name}
                                 </Link>
                             </ListGroup.Item>
