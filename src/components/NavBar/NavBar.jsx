@@ -1,14 +1,12 @@
+import { Link } from 'react-router-dom'
 import {
-    Button,
     Container,
-    Form,
     Nav,
     Navbar,
-    NavDropdown,
     Offcanvas
 } from 'react-bootstrap'
 
-export const NavBar = ()=>{
+export const NavBar = ({children})=>{
     return (
         <Navbar bg="light" expand="xxl">
           <Container fluid>
@@ -21,14 +19,12 @@ export const NavBar = ()=>{
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-xxl`}>
-                  Offcanvas
+                  Menú
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Button variant='success'>
-                      Agregar nuevo curso
-                    </Button>
+                    { children }
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
