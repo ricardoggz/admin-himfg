@@ -4,7 +4,9 @@ import { DeleteCourse, PutCourse, Loader } from '../../components'
 import { formatDate } from '../../helpers'
 
 export const CoursesTable = ()=>{
-    const [courses, isLoading] = useFetch()
+    const [courses, isLoading] = useFetch({
+        url: `${import.meta.env.VITE_BASE_URL}api/courses/all-courses`
+    })
     return (
         <>
             {

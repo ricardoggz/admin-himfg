@@ -1,6 +1,6 @@
 import { useContext} from "react"
-import { NavBar, CoursesTable } from "../components"
 import { UserContext } from "../contexts/UserContext"
+import { CoursesTable, NavBar, CoursesOptions } from '../components'
 
 export const Dashboard = ()=>{
     const { user } = useContext(UserContext)
@@ -16,7 +16,10 @@ export const Dashboard = ()=>{
         }
         if(user.department_id === "2"){
             return (
-                <h1>Enseñanza</h1>
+                <>
+                    <NavBar />
+                    <CoursesOptions />
+                </>
             )
         }
     }
