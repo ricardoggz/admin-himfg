@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {Button, Form, Image} from 'react-bootstrap'
@@ -7,9 +7,12 @@ import { UserContext } from '../../contexts'
 import { formLogin } from './formLogin.module.css'
 
 export const FormLogin = ()=>{
-    const { inputData, onChange, onReset } = useOnChange()
-    const { login } = useContext(UserContext)
+    const { inputData, onChange } = useOnChange()
+    const { login, user } = useContext(UserContext)
     const navigate = useNavigate()
+    useEffect(()=>{
+        if(user) navigate('/dashboard')
+    },[])
     const onSubmit = async(evt)=>{
         evt.preventDefault()
         try {
