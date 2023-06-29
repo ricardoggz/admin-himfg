@@ -8,7 +8,7 @@ import {
 
 export const NavBar = ({children})=>{
     return (
-        <Navbar bg="light" expand="xxl">
+        <Navbar className="shadow p-3 mb-5 bg-white rounded" expand="xxl">
           <Container fluid>
             <Navbar.Brand href="#">Administrativo HIMFG</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-xxl`} />
