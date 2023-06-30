@@ -1,5 +1,5 @@
-import { useContext} from "react"
-import { Routes, Route } from 'react-router-dom'
+import { useContext, useEffect } from "react"
+import { Routes, Route, useNavigate} from 'react-router-dom'
 import { Link } from "react-router-dom"
 import { Button } from "react-bootstrap"
 import { Inscriptions } from './Inscriptions'
@@ -8,7 +8,10 @@ import { CoursesTable, NavBar, CoursesOptions } from '../components'
 
 export const Dashboard = ()=>{
     const { user } = useContext(UserContext)
-
+    const navigate = useNavigate()
+    useEffect(()=>{
+        if(!user) navigate('/')
+    },[user])
     if(user){
         if(user.department_id === "1"){
             return (

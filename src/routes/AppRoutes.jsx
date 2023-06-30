@@ -8,11 +8,7 @@ export const AppRoutes = ()=>{
     return (
         <Routes>
             <Route path='/' element={<Home />}/>
-            {
-                !user ? null
-                :
-                <Route path='/dashboard/*' element={<Dashboard />}/>
-            }
+            <Route path='/dashboard/*' element={<Dashboard />}/>
         </Routes>
     )
 }

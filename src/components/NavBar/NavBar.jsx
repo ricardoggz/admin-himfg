@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom'
+import { useContext } from 'react'
 import {
     Container,
     Nav,
     Navbar,
-    Offcanvas
+    Offcanvas,
+    Button
 } from 'react-bootstrap'
+import { UserContext } from '../../contexts'
 
 export const NavBar = ({children})=>{
+  const { logout }= useContext(UserContext)
     return (
         <Navbar className="shadow p-3 mb-5 bg-white rounded" expand="xxl">
           <Container fluid>
@@ -25,6 +28,11 @@ export const NavBar = ({children})=>{
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                     { children }
+                    <li>
+                      <Button variant="danger" onClick={logout}>
+                        Cerrar sesión
+                      </Button>
+                    </li>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

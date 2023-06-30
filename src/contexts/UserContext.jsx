@@ -5,9 +5,9 @@ export const UserContext = createContext()
 export const UserProvider = ({children})=>{
     const [user, setUser] = useState(null)
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         setUser(JSON.parse(localStorage.getItem('user')))
-    },[])
+    },[])*/
 
     const login = (user)=>{
         localStorage.setItem('user', JSON.stringify(user))
