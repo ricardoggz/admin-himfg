@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { Button } from "react-bootstrap"
 import { Inscriptions } from './Inscriptions'
 import { UserContext } from "../contexts/UserContext"
-import { CoursesTable, NavBar, CoursesOptions } from '../components'
+import { CoursesTable, NavBar, CoursesOptions, AddCourse } from '../components'
 
 export const Dashboard = ()=>{
     const { user } = useContext(UserContext)
@@ -23,9 +23,7 @@ export const Dashboard = ()=>{
                             </Link>
                         </li>
                         <li>
-                            <Button variant="success">
-                                Agrgegar curso
-                            </Button>
+                            <AddCourse />
                         </li>
                     </NavBar>
                     <CoursesTable />
