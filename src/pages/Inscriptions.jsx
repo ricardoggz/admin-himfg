@@ -11,7 +11,6 @@ export const Inscriptions = ()=>{
     let id = parseInt(params.id)
     let filteredCourses
     if(courses && params.id) filteredCourses = courses.filter((course)=> course.course_id === id)
-    console.log(filteredCourses)
     return (
         <>
             {
@@ -21,7 +20,11 @@ export const Inscriptions = ()=>{
                 <thead className="table-dark">
                 <tr>
                     <th>Nombre de alumno</th>
-                    <th>Pago</th>
+                    <th>Edad</th>
+                    <th>Email</th>
+                    <th>Contraseña de plataforma</th>
+                    <th>Grado académico</th>
+                    <th>Institución donde trabaja</th>
                     <th>Curso al que se inscribió</th>
                     <th>Referencia de pago</th>
                 </tr>
@@ -33,14 +36,11 @@ export const Inscriptions = ()=>{
                     .map((course, index)=>(
                         <tr key={index}>
                             <td>{course.student_name}</td>
-                            <td>
-                            {
-                                course.payment_successfull.data[0] === 1 ?
-                                'Curso Pagado'
-                                :
-                                ''
-                            }
-                            </td>
+                            <td>{course.student_age} años</td>
+                            <td>{course.student_email}</td>
+                            <td>{course.student_password}</td>
+                            <td>{course.student_grade}</td>
+                            <td>{course.student_institution}</td>
                             <td>{course.course_name}</td>
                             <td>{course.payment_reference}</td>
                         </tr>
