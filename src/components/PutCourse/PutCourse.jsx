@@ -1,25 +1,23 @@
 import { useState } from 'react'
+import axios from 'axios'
 import { Modal, Button, Form } from 'react-bootstrap'
 
 export const PutCourse = ({ propCourse })=>{
     const [course, setCourse] = useState({
       course_name : propCourse.course_name,
-      course_instructor: propCourse.course_instructor,
-      course_price: propCourse.course_price,
-      course_place: propCourse.course_place,
-      course_image: propCourse.course_image,
-      course_pdf: propCourse.course_pdf,
-      modality_id:propCourse.modality_id,
+      course_instructor: !propCourse.course_instructor ? "" : propCourse.course_instructor,
+      course_price: !propCourse.course_price ? "" : propCourse.course_price,
+      course_place: !propCourse.course_place ? "" : propCourse.course_place,
+      course_image: !propCourse.course_image ? "" : propCourse.course_image,
+      course_pdf: !propCourse.course_pdf ? "" : propCourse.course_pdf,
+      modality_id: !propCourse.modality_id ? "" : propCourse.modality_id,
       course_start_date: propCourse.course_start_date,
       course_finish_date: propCourse.course_finish_date,
       month_id: propCourse.month_id,
-      course_password: propCourse.course_password,
-      course_vimeo_folder: propCourse.course_vimeo_folder,
-      course_live_video:propCourse.course_live_video,
-      course_zoom_video: propCourse.course_zoom_video,
-      course_zoom_id:propCourse.course_zoom_id,
-      course_zoom_password:propCourse.course_zoom_password,
-      course_url: propCourse.course_url
+      course_password: !propCourse.course_password ? "" : propCourse.course_password,
+      course_vimeo_folder: !propCourse.course_vimeo_folder ? "" :propCourse.course_vimeo_folder,
+      course_live_video: !propCourse.course_live_video ? "" : propCourse.course_live_video,
+      course_url: !propCourse.course_url ? "" : propCourse.course_url
     })
     const [isOpen, setIsOpen] = useState(false)
     const handlePutModal = () => {
@@ -34,23 +32,33 @@ export const PutCourse = ({ propCourse })=>{
     }
     const onReset = ()=> setCourse({
       course_name : propCourse.course_name,
-      course_instructor: propCourse.course_instructor,
-      course_price: propCourse.course_price,
-      course_place: propCourse.course_place,
-      course_image: propCourse.course_image,
-      course_pdf: propCourse.course_pdf,
-      modality_id:propCourse.modality_id,
+      course_instructor: !propCourse.course_instructor ? "" : propCourse.course_instructor,
+      course_price: !propCourse.course_price ? "" : propCourse.course_price,
+      course_place: !propCourse.course_place ? "" : propCourse.course_place,
+      course_image: !propCourse.course_image ? "" : propCourse.course_image,
+      course_pdf: !propCourse.course_pdf ? "" : propCourse.course_pdf,
+      modality_id: !propCourse.modality_id ? "" : propCourse.modality_id,
       course_start_date: propCourse.course_start_date,
       course_finish_date: propCourse.course_finish_date,
       month_id: propCourse.month_id,
-      course_password: propCourse.course_password,
-      course_vimeo_folder: propCourse.course_vimeo_folder,
-      course_live_video:propCourse.course_live_video,
-      course_zoom_video: propCourse.course_zoom_video,
-      course_zoom_id:propCourse.course_zoom_id,
-      course_zoom_password:propCourse.course_zoom_password,
-      course_url: propCourse.course_url
+      course_password: !propCourse.course_password ? "" : propCourse.course_password,
+      course_vimeo_folder: !propCourse.course_vimeo_folder ? "" :propCourse.course_vimeo_folder,
+      course_live_video: !propCourse.course_live_video ? "" : propCourse.course_live_video,
+      course_url: !propCourse.course_url ? "" : propCourse.course_url
     })
+    const updateCourse = async(evt)=>{
+      evt.preventDefault()
+      try {
+        const response = await axios.put(
+          `${import.meta.env.VITE_BASE_URL}api/courses/edit-course/${propCourse.course_id}`,
+          course
+        )
+        document.location.reload()
+        return response
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
     return (
         <>
           <Button variant="success" onClick={handlePutModal}>
@@ -73,7 +81,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_name}
+                    defaultValue={course.course_name}
                     name='course_name'
                     onChange={onChange}
                   />
@@ -83,7 +91,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_instructor}
+                    defaultValue={propCourse.course_instructor}
                     name='course_instructor'
                     onChange={onChange}
                   />
@@ -93,7 +101,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course.course_price}
+                    defaultValue={course.course_price}
                     name='course_price'
                     onChange={onChange}
                   />
@@ -103,7 +111,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_place}
+                    defaultValue={course.course_place}
                     name='course_place'
                     onChange={onChange}
                   />
@@ -113,7 +121,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_image}
+                    defaultValue={course.course_image}
                     name='course_image'
                     onChange={onChange}
                   />
@@ -123,7 +131,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_pdf}
+                    defaultValue={course.course_pdf}
                     name='course_pdf'
                     onChange={onChange}
                   />
@@ -133,7 +141,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course.modality_id}
+                    defaultValue={course.modality_id}
                     name='modality_id'
                     onChange={onChange}
                   />
@@ -143,7 +151,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={new Date(course.course_start_date).toLocaleDateString()}
+                    defaultValue={new Date(course.course_start_date).toLocaleDateString()}
                     name='course_start_date'
                     onChange={onChange}
                   />
@@ -153,7 +161,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={new Date(course.course_finish_date).toLocaleDateString()}
+                    defaultValue={new Date(course.course_finish_date).toLocaleDateString()}
                     name='course_finish_date'
                     onChange={onChange}
                   />
@@ -163,7 +171,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course.month_id}
+                    defaultValue={course.month_id}
                     name='month_id'
                     onChange={onChange}
                   />
@@ -173,7 +181,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_password}
+                    defaultValue={course.course_password}
                     name='course_password'
                     onChange={onChange}
                   />
@@ -183,7 +191,7 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course.course_vimeo_folder}
+                    defaultValue={course.course_vimeo_folder}
                     name='course_vimeo_folder'
                     onChange={onChange}
                   />
@@ -193,47 +201,17 @@ export const PutCourse = ({ propCourse })=>{
                   <Form.Control
                     type="number"
                     autoFocus
-                    value={course.course_live_video}
+                    defaultValue={course.course_live_video}
                     name='course_live_video'
                     onChange={onChange}
                   />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Link de zoom (opcional):</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={course.course_zoom_video}
-                    name='course_zoom_video'
-                    onChange={onChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>ID de reunión de zoom (opcional):</Form.Label>
-                  <Form.Control
-                    type="number"
-                    autoFocus
-                    value={course.course_zoom_id}
-                    name='course_zoom_id'
-                    onChange={onChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Contraseña de zoom (opcional):</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={course.course_zoom_password}
-                    name='course_zoom_password'
-                    onChange={onChange}
-                  />
-                </Form.Group>
+                </Form.Group>                              
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>URL del curso:</Form.Label>
                   <Form.Control
                     type="text"
                     autoFocus
-                    value={course.course_url}
+                    defaultValue={course.course_url}
                     name='course_url'
                     onChange={onChange}
                   />
@@ -244,7 +222,7 @@ export const PutCourse = ({ propCourse })=>{
               <Button variant="secondary" onClick={handlePutModal}>
                 No, cancelar
               </Button>
-              <Button variant="success">
+              <Button variant="success" onClick={updateCourse}>
                 Sí, actualizar
               </Button>
             </Modal.Footer>
