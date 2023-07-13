@@ -12,7 +12,7 @@ export const CoursesTable = ()=>{
             {
                 !isLoading
                 ?
-                <Table variant="success">
+                <Table variant="success" responsive>
                 <thead className="table-dark">
                 <tr>
                     <th>ID</th>
