@@ -11,7 +11,7 @@ export const FormLogin = ()=>{
     const { login, user } = useContext(UserContext)
     const navigate = useNavigate()
     useEffect(()=>{
-        if(user) navigate('/dashboard')
+        if(user!== null) navigate('/dashboard')
     },[])
     const onSubmit = async(evt)=>{
         evt.preventDefault()
