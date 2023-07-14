@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from "axios"
 import { Button, Modal, Form } from 'react-bootstrap'
 
 export const AddCourse = ()=>{
@@ -15,6 +16,20 @@ export const AddCourse = ()=>{
         })
       }
       const onReset = ()=> setCourse(null)
+      const createCourse = async(evt)=>{
+        evt.preventDefault()
+        try {
+          const response = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}api/courses/add-course`,
+            course
+          )
+          if(response.data.message) alert(response.data.message)
+          document.location.reload()          
+          return response
+        } catch (error) {
+          throw new Error(error)
+        }
+      }
       return (
           <>
             <Button variant="success" onClick={handlePutModal}>
@@ -48,6 +63,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_instructor'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -57,6 +73,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_price'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -66,6 +83,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_place'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -75,6 +93,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_image'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -84,21 +103,22 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_pdf'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Modalidad:</Form.Label>
-                    <Form.Control
-                      type="number"
-                      autoFocus
-                      name='modality_id'
-                      onChange={onChange}
-                    />
+                    <Form.Select name='modality_id' onChange={onChange}>
+                      <option></option>
+                      <option value='1'>Presencial</option>
+                      <option value='2'>En línea</option>
+                      <option value='3'>Híbrida</option>
+                    </Form.Select>            
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Fecha de inicio:</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="date"
                       autoFocus
                       name='course_start_date'
                       onChange={onChange}
@@ -107,20 +127,29 @@ export const AddCourse = ()=>{
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Fecha de término:</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="date"
                       autoFocus
                       name='course_finish_date'
                       onChange={onChange}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Mes:</Form.Label>
-                    <Form.Control
-                      type="number"
-                      autoFocus
-                      name='month_id'
-                      onChange={onChange}
-                    />
+                    <Form.Label>Mes de inicio:</Form.Label>
+                    <Form.Select name='month_id' onChange={onChange}>
+                      <option></option>
+                      <option value='0'>Enero</option>
+                      <option value='1'>Febrero</option>
+                      <option value='2'>Marzo</option>
+                      <option value='3'>Abril</option>
+                      <option value='4'>Mayo</option>
+                      <option value='5'>Junio</option>
+                      <option value='6'>Julio</option>
+                      <option value='7'>Agosto</option>
+                      <option value='8'>Septiembre</option>
+                      <option value='9'>Octubre</option>
+                      <option value='10'>Noviembre</option>
+                      <option value='11'>Diciembre</option>
+                    </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Contraseña del curso:</Form.Label>
@@ -129,6 +158,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_password'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -138,6 +168,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_vimeo_folder'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -147,35 +178,9 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_live_video'
                       onChange={onChange}
+                      defaultValue=""
                     />
-                  </Form.Group>
-                  {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Link de zoom (opcional):</Form.Label>
-                    <Form.Control
-                      type="text"
-                      autoFocus
-                      name='course_zoom_video'
-                      onChange={onChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>ID de reunión de zoom (opcional):</Form.Label>
-                    <Form.Control
-                      type="number"
-                      autoFocus
-                      name='course_zoom_id'
-                      onChange={onChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Contraseña de zoom (opcional):</Form.Label>
-                    <Form.Control
-                      type="text"
-                      autoFocus
-                      name='course_zoom_password'
-                      onChange={onChange}
-                    />
-                  </Form.Group>*/}
+                  </Form.Group>                  
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>URL del curso:</Form.Label>
                     <Form.Control
@@ -183,6 +188,7 @@ export const AddCourse = ()=>{
                       autoFocus
                       name='course_url'
                       onChange={onChange}
+                      defaultValue=""
                     />
                   </Form.Group>
                 </Form>
@@ -191,7 +197,7 @@ export const AddCourse = ()=>{
                 <Button variant="secondary" onClick={handlePutModal}>
                   Cancelar
                 </Button>
-                <Button variant="success">
+                <Button variant="success" onClick={createCourse}>
                   Agregar nuevo curso
                 </Button>
               </Modal.Footer>
