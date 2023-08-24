@@ -16,16 +16,19 @@ export const Inscriptions = ()=>{
             {
                 !isLoading
                 ?  
-                <Table variant="success">
+                <Table variant="success" responsive>
                 <thead className="table-dark">
                 <tr>
                     <th>Nombre de alumno</th>
                     <th>Edad</th>
+                    <th>Teléfono</th>
                     <th>Email</th>
                     <th>Contraseña de plataforma</th>
                     <th>Grado académico</th>
                     <th>Institución donde trabaja</th>
                     <th>Curso al que se inscribió</th>
+                    <th>Nacionalidad</th>
+                    <th>Estado de procedencia</th>
                     <th>Referencia de pago</th>
                 </tr>
                 </thead>
@@ -37,11 +40,14 @@ export const Inscriptions = ()=>{
                         <tr key={index}>
                             <td>{course.student_name}</td>
                             <td>{course.student_age} años</td>
+                            <td>{course.student_phone}</td>
                             <td>{course.student_email}</td>
                             <td>{course.student_password}</td>
                             <td>{course.student_grade}</td>
                             <td>{course.student_institution}</td>
                             <td>{course.course_name}</td>
+                            <td>{course.student_nationality}</td>
+                            <td>{course.student_state}</td>
                             <td>{course.payment_reference}</td>
                         </tr>
                     ))
