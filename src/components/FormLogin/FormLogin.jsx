@@ -77,6 +77,14 @@ export const FormLogin = ()=>{
                     onChange={onChange}
                     required
                 />
+                <Form.Label>TESORERÍA</Form.Label>
+                <Form.Check
+                    type="radio"
+                    value='3'
+                    name='department_id'
+                    onChange={onChange}
+                    required
+                />
             </Form.Group>
             <Button variant="primary" type="submit">
                 Acceder

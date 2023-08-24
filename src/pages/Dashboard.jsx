@@ -47,5 +47,19 @@ export const Dashboard = ()=>{
                 </>
             )
         }
+        if(user.department_id === "3"){
+            return (
+                <>
+                    <NavBar>
+                        <li className="nav-item">
+                            <Link to='/dashboard' className="nav-link">
+                                Inicio
+                            </Link>
+                        </li>
+                    </NavBar>
+                    <h1>Tesorería</h1>
+                </>
+            )
+        }
     }
 }
