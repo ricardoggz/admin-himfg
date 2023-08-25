@@ -10,7 +10,10 @@ export const Inscriptions = ()=>{
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
-    if(courses && params.id) filteredCourses = courses.filter((course)=> course.course_id === id)
+    if(courses && params.id) {
+        filteredCourses = courses.filter((course)=> course.course_id === id)
+        console.log(courses)
+    }
     return (
         <>
             {
@@ -28,8 +31,9 @@ export const Inscriptions = ()=>{
                     <th>Institución donde trabaja</th>
                     <th>Curso al que se inscribió</th>
                     <th>Nacionalidad</th>
-                    <th>Estado de procedencia</th>
+                    <th>Lugar de procedencia</th>
                     <th>Referencia de pago</th>
+                    <th>Fotografía de documentación</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +53,19 @@ export const Inscriptions = ()=>{
                             <td>{course.student_nationality}</td>
                             <td>{course.student_state}</td>
                             <td>{course.payment_reference}</td>
+                            {
+                                course.student_license ?
+                                <td>
+                                    <a
+                                    href={`https://upload-nodejs.onrender.com/files/${course.student_license}`}
+                                    target="_blank"
+                                    >
+                                        Ver documentación
+                                    </a>
+                                </td>
+                                :
+                                <td>Sin documentación</td>
+                            }
                         </tr>
                     ))
                     :
