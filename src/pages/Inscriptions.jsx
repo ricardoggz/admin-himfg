@@ -12,7 +12,6 @@ export const Inscriptions = ()=>{
     let filteredCourses
     if(courses && params.id) {
         filteredCourses = courses.filter((course)=> course.course_id === id)
-        console.log(courses)
     }
     return (
         <>
