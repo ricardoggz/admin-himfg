@@ -4,14 +4,14 @@ import { Loader } from '../../components'
 import { useFetch } from '../../hooks'
 import { coursesOptions } from './coursesOptions.module.css'
 
-export const CoursesOptions =()=>{
+export const CoursesOptions =({title})=>{
     const [courses, isLoading] = useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/courses/all-courses`
     })
     return (
         <section className={`${coursesOptions}`}>
             <h2 className="text-center">
-                Selecciona un curso para ver alumnos inscritos
+                {title}
             </h2>
             {
                 !isLoading ?
