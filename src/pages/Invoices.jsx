@@ -24,6 +24,7 @@ export const Invoices = ()=>{
                     <th>Nombre de alumno</th>
                     <th>Email</th>
                     <th>Curso al que se inscribió</th>
+                    <th>Monto pagado</th>
                     <th>Referencia de pago</th>
                 </tr>
                 </thead>
@@ -36,6 +37,7 @@ export const Invoices = ()=>{
                             <td>{course.student_name}</td>
                             <td>{course.student_email}</td>
                             <td>{course.course_name}</td>
+                            <td>$ {course.payment_amount} mxn</td>
                             <td>{course.payment_reference}</td>
                             {
                                 /*course.student_license ?

@@ -31,6 +31,7 @@ export const Inscriptions = ()=>{
                     <th>Curso al que se inscribió</th>
                     <th>Nacionalidad</th>
                     <th>Lugar de procedencia</th>
+                    <th>Monto pagado</th>
                     <th>Referencia de pago</th>
                     <th>Fotografía de documentación</th>
                 </tr>
@@ -51,6 +52,7 @@ export const Inscriptions = ()=>{
                             <td>{course.course_name}</td>
                             <td>{course.student_nationality}</td>
                             <td>{course.student_state}</td>
+                            <td>$ {course.payment_amount} mxn</td>
                             <td>{course.payment_reference}</td>
                             {
                                 course.student_license ?
