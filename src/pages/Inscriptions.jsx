@@ -56,7 +56,7 @@ export const Inscriptions = ()=>{
                                 course.student_license ?
                                 <td>
                                     <a
-                                    href={`https://upload-nodejs.onrender.com/files/${course.student_license}`}
+                                    href={`${course.student_license}`}
                                     target="_blank"
                                     >
                                         Ver documentación
