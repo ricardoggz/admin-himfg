@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
@@ -10,15 +11,38 @@ export const Invoices = ()=>{
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
+    let csvStudents
     if(courses && params.id){
         filteredCourses = courses.filter((course)=> course.course_id === id)
+        csvStudents=filteredCourses.map((student)=>( 
+            {
+                nombre: student.student_name,
+                email: student.student_email,
+                teléfono: student.student_phone,
+                curso: student.course_name,
+                monto: `${student.payment_amount}.00 mxn`,
+                referencia: student.payment_reference
+            }  
+        ))
     }
     return (
         <>
+            <div className="d-flex justify-content-center pb-5">
+                {
+                !csvStudents ? null
+                :
+                <CSVLink
+                    className='btn btn-success'
+                    data={csvStudents}
+                    filename="alumnos"
+                    >    
+                    Convertir datos a excel
+                </CSVLink>}
+            </div>
             {
                 !isLoading
                 ?  
-                <Table variant="success" responsive>
+                <Table variant="success" responsive id="table-to-xls">
                 <thead className="table-dark">
                 <tr>
                     <th>Nombre de alumno</th>
