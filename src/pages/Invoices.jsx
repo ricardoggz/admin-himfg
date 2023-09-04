@@ -14,7 +14,8 @@ export const Invoices = ()=>{
     let csvStudents
     if(courses && params.id){
         filteredCourses = courses.filter((course)=> course.course_id === id)
-        csvStudents=filteredCourses.map((student)=>( 
+        csvStudents=courses.filter((course)=>course.student_tax_data !== null)
+        .map((student)=>(
             {
                 nombre: student.student_name,
                 email: student.student_email,
@@ -22,8 +23,8 @@ export const Invoices = ()=>{
                 curso: student.course_name,
                 monto: `${student.payment_amount}.00 mxn`,
                 referencia: student.payment_reference
-            }  
-        ))
+            } 
+        ))        
     }
     return (
         <>
@@ -49,6 +50,7 @@ export const Invoices = ()=>{
                     <th>Email</th>
                     <th>Curso al que se inscribió</th>
                     <th>Monto pagado</th>
+                    <th>Constancia de situacion fiscal</th>
                     <th>Referencia de pago</th>
                 </tr>
                 </thead>
@@ -62,6 +64,18 @@ export const Invoices = ()=>{
                             <td>{course.student_email}</td>
                             <td>{course.course_name}</td>
                             <td>$ {course.payment_amount} mxn</td>
+                            {
+                            !course.student_tax_data ? null
+                            :
+                            <td>
+                                <a
+                                href={`${course.student_tax_data}`}
+                                target="_blank"
+                                >
+                                    Ver documentación
+                                </a>
+                            </td>
+                            }
                             <td>{course.payment_reference}</td>
                             {
                                 /*course.student_license ?
