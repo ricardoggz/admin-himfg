@@ -24,7 +24,7 @@ export const Invoices = ()=>{
                 monto: `${student.payment_amount}.00 mxn`,
                 referencia: student.payment_reference
             } 
-        ))        
+        ))       
     }
     return (
         <>
@@ -63,9 +63,22 @@ export const Invoices = ()=>{
                             <td>{course.student_name}</td>
                             <td>{course.student_email}</td>
                             <td>{course.course_name}</td>
-                            <td>$ {course.payment_amount} mxn</td>
+                            <td>
+                                {
+                                course.payment_amount === 0
+                                ?
+                                <>
+                                $ {course.payment_amount}<br/>(Beca del 100%)
+                                </>
+                                :
+                                <>$ {course.payment_amount} mxn</>
+                                }
+                            </td>
                             {
-                            !course.student_tax_data ? null
+                            !course.student_tax_data ? 
+                            <td>
+                                Sin documentos
+                            </td>
                             :
                             <td>
                                 <a
@@ -77,19 +90,6 @@ export const Invoices = ()=>{
                             </td>
                             }
                             <td>{course.payment_reference}</td>
-                            {
-                                /*course.student_license ?
-                                <td>
-                                    <a
-                                    href={`https://upload-nodejs.onrender.com/files/${course.student_license}`}
-                                    target="_blank"
-                                    >
-                                        Ver documentación
-                                    </a>
-                                </td>
-                                :
-                                <td>Sin documentación</td>*/
-                            }
                         </tr>
                     ))
                     :

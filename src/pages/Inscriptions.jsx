@@ -52,7 +52,17 @@ export const Inscriptions = ()=>{
                             <td>{course.course_name}</td>
                             <td>{course.student_nationality}</td>
                             <td>{course.student_state}</td>
-                            <td>$ {course.payment_amount} mxn</td>
+                            <td>
+                                {
+                                course.payment_amount === 0
+                                ?
+                                <>
+                                $ {course.payment_amount}<br/>(Beca del 100%)
+                                </>
+                                :
+                                <>$ {course.payment_amount} mxn</>
+                                }
+                            </td>
                             <td>{course.payment_reference}</td>
                             {
                                 course.student_license ?
