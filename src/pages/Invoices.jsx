@@ -11,10 +11,10 @@ export const Invoices = ()=>{
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
-    let csvStudents
+    let csvStudents = 'Sin alumnos'
     if(courses && params.id){
         filteredCourses = courses.filter((course)=> course.course_id === id)
-        csvStudents=courses.filter((course)=>course.student_tax_data !== null)
+        csvStudents=filteredCourses.filter((course)=>course.payment_invoice === 'FACTURACION')
         .map((student)=>(
             {
                 nombre: student.student_name,
@@ -22,20 +22,22 @@ export const Invoices = ()=>{
                 teléfono: student.student_phone,
                 curso: student.course_name,
                 monto: `${student.payment_amount}.00 mxn`,
-                referencia: student.payment_reference
+                referencia: student.payment_reference,
+                facturacion: "Sí"
             } 
-        ))       
+        ))     
     }
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
                 {
-                !csvStudents ? null
+                csvStudents && csvStudents.length === 0 ?
+                <button disabled className="btn btn-secondary">Sin datos a exportar</button>
                 :
                 <CSVLink
                     className='btn btn-success'
                     data={csvStudents}
-                    filename="alumnos"
+                    filename="facturacion-alumnos"
                     >    
                     Convertir datos a excel
                 </CSVLink>}
@@ -51,6 +53,7 @@ export const Invoices = ()=>{
                     <th>Curso al que se inscribió</th>
                     <th>Monto pagado</th>
                     <th>Constancia de situacion fiscal</th>
+                    <th>Facturación</th>
                     <th>Referencia de pago</th>
                 </tr>
                 </thead>
@@ -88,6 +91,12 @@ export const Invoices = ()=>{
                                     Ver documentación
                                 </a>
                             </td>
+                            }
+                            {
+                                course.payment_invoice === 'FACTURACION' ?
+                                <td>Sí</td>
+                                :
+                                <td>No</td>
                             }
                             <td>{course.payment_reference}</td>
                         </tr>
