@@ -47,7 +47,13 @@ export const Inscriptions = ()=>{
                             <td>{course.student_phone}</td>
                             <td>{course.student_email}</td>
                             <td>{course.student_password}</td>
-                            <td>{course.student_grade}</td>
+                            {
+                                course.student_grade === 'undefined'
+                                ?
+                                <td>Sin grado académico</td>
+                                :
+                                <td>{course.student_grade}</td>
+                            }
                             <td>{course.student_institution}</td>
                             <td>{course.course_name}</td>
                             <td>{course.student_nationality}</td>
