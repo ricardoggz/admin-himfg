@@ -14,8 +14,7 @@ export const Invoices = ()=>{
     let csvStudents = 'Sin alumnos'
     if(courses && params.id){
         filteredCourses = courses.filter((course)=> course.course_id === id)
-        csvStudents=filteredCourses.filter((course)=>course.payment_invoice === 'FACTURACION')
-        .map((student)=>(
+        csvStudents=filteredCourses.map((student)=>(
             {
                 nombre: student.student_name,
                 email: student.student_email,
@@ -23,7 +22,7 @@ export const Invoices = ()=>{
                 curso: student.course_name,
                 monto: `${student.payment_amount}.00 mxn`,
                 referencia: student.payment_reference,
-                facturacion: "Sí"
+                facturacion: student.payment_invoice === 'FACTURACION' ? "Sí" : "No"
             } 
         ))     
     }
