@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
@@ -10,11 +11,41 @@ export const Inscriptions = ()=>{
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
+    let csvStudents = 'Sin alumnos'
     if(courses && params.id) {
         filteredCourses = courses.filter((course)=> course.course_id === id)
+        csvStudents=filteredCourses.map((student)=>(
+            {
+                nombre: student.student_name,
+                edad: student.student_age,
+                teléfono: student.student_phone,
+                email: student.student_email,
+                contraseña:student.student_password,
+                grado:student.student_grade === "undefined" ? "Sin grado académico" : student.student_grade,
+                institucion:student.student_institution,
+                curso: student.course_name,
+                nacionalidad:student.student_nationality,
+                procedencia:student.student_state,
+                monto: `${student.payment_amount}.00 mxn`,
+                referencia: student.payment_reference
+            } 
+        ))
     }
     return (
         <>
+            <div className="d-flex justify-content-center pb-5">
+                {
+                csvStudents && csvStudents.length === 0 ?
+                <button disabled className="btn btn-secondary">Sin datos a exportar</button>
+                :
+                <CSVLink
+                    className='btn btn-success'
+                    data={csvStudents}
+                    filename="facturacion-alumnos"
+                    >    
+                    Convertir datos a excel
+                </CSVLink>}
+            </div>
             {
                 !isLoading
                 ?  
