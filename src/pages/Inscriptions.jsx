@@ -41,7 +41,7 @@ export const Inscriptions = ()=>{
                 <CSVLink
                     className='btn btn-success'
                     data={csvStudents}
-                    filename="facturacion-alumnos"
+                    filename="inscripcion-alumnos"
                     >    
                     Convertir datos a excel
                 </CSVLink>}
