@@ -64,7 +64,8 @@ export const Inscriptions = ()=>{
                     <th>Lugar de procedencia</th>
                     <th>Monto pagado</th>
                     <th>Referencia de pago</th>
-                    <th>Fotografía de documentación</th>
+                    <th>Fotografía de documentación 1era parte</th>
+                    <th>Fotografía de documentación 2da parte</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -102,17 +103,30 @@ export const Inscriptions = ()=>{
                             </td>
                             <td>{course.payment_reference}</td>
                             {
-                                course.student_license ?
-                                <td>
+                                course.student_license && course.student_license_part_2 ?
+                                <>
+                                    <td>
+                                        <a
+                                        href={`${course.student_license}`}
+                                        target="_blank"
+                                        >
+                                            Ver documentación
+                                        </a>
+                                    </td>
+                                    <td>
                                     <a
-                                    href={`${course.student_license}`}
+                                    href={`${course.student_license_part_2}`}
                                     target="_blank"
                                     >
                                         Ver documentación
                                     </a>
                                 </td>
+                                </>
                                 :
-                                <td>Sin documentación</td>
+                                <>
+                                    <td>Sin documentación</td>
+                                    <td>Sin documentación</td>
+                                </>
                             }
                         </tr>
                     ))
