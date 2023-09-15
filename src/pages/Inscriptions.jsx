@@ -1,10 +1,13 @@
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
+import { uploadFile } from "../services"
 
 export const Inscriptions = ()=>{
+    const [formData, setFormData] = useState(null)
     const [courses, isLoading]= useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/payments/all-payments`
     })
@@ -30,6 +33,15 @@ export const Inscriptions = ()=>{
                 referencia: student.payment_reference
             } 
         ))
+    }
+    const handleChange = (evt)=>{
+        setFormData({
+            [evt.target.name]: evt.target.files[0]
+        })
+    }
+    const handleSubmit = (evt)=>{
+        evt.preventDefault()
+        uploadFile({file: formData.pdfFile})
     }
     return (
         <>
@@ -66,6 +78,8 @@ export const Inscriptions = ()=>{
                     <th>Referencia de pago</th>
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
+                    <th>Subir constancia de asistencia</th>
+                    <th>Subir constancia de acreditación</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -128,6 +142,28 @@ export const Inscriptions = ()=>{
                                     <td>Sin documentación</td>
                                 </>
                             }
+                            <td>
+                                <form onSubmit={handleSubmit}>
+                                    <input
+                                        type='file'
+                                        name='pdfFile'
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                    <button>Subir archivo</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form onSubmit={handleSubmit}>
+                                    <input
+                                        type='file'
+                                        name='pdfFile'
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                    <button>Subir archivo</button>
+                                </form>
+                            </td>
                         </tr>
                     ))
                     :
