@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
+import { v4 as uuidv4 } from 'uuid'
 import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
@@ -7,6 +8,7 @@ import { Loader } from "../components"
 import { uploadFile } from "../services"
 
 export const Inscriptions = ()=>{
+    const randomFileName = `${uuidv4()}.pdf`
     const [formData, setFormData] = useState(null)
     const [courses, isLoading]= useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/payments/all-payments`
@@ -36,12 +38,13 @@ export const Inscriptions = ()=>{
     }
     const handleChange = (evt)=>{
         setFormData({
-            [evt.target.name]: evt.target.files[0]
+            [evt.target.name]: evt.target.files[0],
+            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${randomFileName}`
         })
     }
     const handleSubmit = (evt)=>{
         evt.preventDefault()
-        uploadFile({file: formData.pdfFile})
+        uploadFile({file: formData.pdfFile, fileName:randomFileName})
     }
     return (
         <>

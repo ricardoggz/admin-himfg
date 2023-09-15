@@ -1,9 +1,9 @@
 import axios from "axios"
 import Swal from "sweetalert2"
 
-export const uploadFile= async({file})=>{
+export const uploadFile= async({file, fileName})=>{
     const formData = new FormData()
-    formData.append('pdfFile', file)
+    formData.append('pdfFile', file, fileName)
     try {
       const response = await axios.post(
         'https://archivos.him.edu.mx/constancias-cursos.php',
