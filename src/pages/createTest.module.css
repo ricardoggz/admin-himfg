@@ -1,0 +1,20 @@
+.options{
+    display:grid;
+    gap:0.5rem;
+    grid-template-columns: repeat(3,1fr);
+}
+.options div{
+    align-items: center;
+    display:flex;
+    flex-direction:column;
+    gap:0.2rem;
+    justify-self: center;
+    padding:0.5rem;
+    width:100%;
+}
+.options .buttons{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:0.5rem;
+    width:50%;
+}

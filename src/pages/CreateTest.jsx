@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { Container, Button, Form } from "react-bootstrap"
+import styles from './createTest.module.css'
 
 export const CreateTest = ()=>{
     const [isOpened, setIsOpened] = useState(false)
@@ -66,17 +67,25 @@ export const CreateTest = ()=>{
                     <div className="mt-5">
                         {
                             options.length > 0 ?
-                            <>
+                            <div className={styles.options}>
                                 {options.map((option, i)=>(
-                                    <div key={i} class="border">
-                                        <span>{option.option_name}</span>
+                                    <div key={i} className="border">
+                                        <span className="text-center">{option.option_name}</span>
                                         <br />
-                                        <label>Opción correcta</label>
+                                        <label className="text-center">Opción correcta</label>
                                         <br />
                                         <input type='radio' name='option_value'/>
+                                        <div className={styles.buttons}>
+                                            <Button variant="danger">
+                                                <i className="bi bi-trash-fill"></i>
+                                            </Button>
+                                            <Button variant='success'>
+                                                <i className="bi bi-pencil-fill"></i>
+                                            </Button>
+                                        </div>
                                     </div>
                                 ))}
-                            </>
+                            </div>
                             :
                             null
                         }
