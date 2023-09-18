@@ -53,9 +53,13 @@ export const CoursesOptions =({title})=>{
                         search && search.map((course)=>(
                             <ListGroup.Item
                                 variant="info"
+                                className="d-flex justify-content-between"
                                 key={course.course_id}>
                                 <Link to={`curso/${course.course_id}`}>
                                     {course.course_name}
+                                </Link>
+                                <Link className="border border-primary btn btn-light">
+                                    Agregar test
                                 </Link>
                             </ListGroup.Item>
                         ))
