@@ -58,7 +58,10 @@ export const CoursesOptions =({title})=>{
                                 <Link to={`curso/${course.course_id}`}>
                                     {course.course_name}
                                 </Link>
-                                <Link className="border border-primary btn btn-light">
+                                <Link
+                                className="border border-primary btn btn-light"
+                                to={`crear-test/${course.course_id}`}
+                                >
                                     Agregar test
                                 </Link>
                             </ListGroup.Item>

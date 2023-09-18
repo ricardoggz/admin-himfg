@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Button } from "react-bootstrap"
 import { Inscriptions } from './Inscriptions'
 import { Invoices } from './Invoices'
+import { CreateTest } from "./CreateTest"
 import { UserContext } from "../contexts/UserContext"
 import { CoursesTable, NavBar, CoursesOptions, AddCourse } from '../components'
 
@@ -43,6 +44,7 @@ export const Dashboard = ()=>{
                     </NavBar>
                     <Routes>
                         <Route path='curso/:id' element={<Inscriptions />}/>
+                        <Route path='crear-test/:id' element={<CreateTest />}/>
                         <Route path='/' element={<CoursesOptions title='Seleccione un curso para ver alumnos inscritos'/>}/>
                     </Routes>
                 </>
