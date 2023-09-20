@@ -2,15 +2,20 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 import { Container, Button, Form, Modal } from "react-bootstrap"
-import { useOnChange } from "../hooks/useOnChange"
 import styles from './createTest.module.css'
 
 export const CreateTest = ()=>{
     const [isOpened, setIsOpened] = useState(false)
     const [isTest, setIsTest] = useState(false)
     const [options, setOptions]= useState([])
+    const [questionId, setQuestionId] = useState(null)
     const [test, setTest] = useState({
         test_id: Math.floor((Math.random() * 450000) + 450000),
+    })
+    const [question, setQuestion] = useState({
+        question_id:Math.floor((Math.random() * 450000) + 450000),
+        test_id:test.test_id,
+        question_name:test.question_name,
     })
     const showForm = ()=> setIsOpened(!isOpened)
     const handleChange = (evt)=>setTest({
@@ -31,14 +36,15 @@ export const CreateTest = ()=>{
     const handleQuestionSubmit = async(evt)=>{
         evt.preventDefault()
         try {
-            const response = await axios.post('http://localhost:3030/api/questions/add-question', {
-                test_id:test.test_id,
-                question_name:test.question_name,
-            })
+            const response = await axios.post(
+                'http://localhost:3030/api/questions/add-question',
+                question
+            )
             if(response.status===200){
                 setOptions(options.concat([{
                     question_name: test.question_name
                 }]))
+                setQuestionId(question.question_id)
             }
         } catch (error) {
             console.log(error)
@@ -46,6 +52,13 @@ export const CreateTest = ()=>{
     }
     const params = useParams()
     const id = parseInt(params.id)
+    useEffect(()=>{
+        setQuestion({
+            question_id:Math.floor((Math.random() * 450000) + 450000),
+            test_id:test.test_id,
+            question_name:test.question_name,
+        })
+    },[test])
     return (
         <Container>
             <h2 className="text-center pb-5">   
@@ -130,15 +143,18 @@ export const CreateTest = ()=>{
                         <div className={styles.options}>
                         {options.map((option, i)=>(
                             <>
-                                <div key={i} className="border">
+                                <div key={i} className="border border-primary">
                                 <span className="text-center">Pregunta: {option.question_name}</span>
                                 <br />
-                                <ModalOption questionName={option.question_name}/>
+                                <ModalOption
+                                    questionName={option.question_name}
+                                    questionId={questionId}
+                                />
                                 </div>
                             </>
                         ))}
                         </div>
-                        <div className="pt-5">
+                        <div className="pt-5 pb-5">
                             <span className="fs-3">Total: {options.length} pregunta(s)</span>
                         </div>
                     </>
@@ -151,13 +167,61 @@ export const CreateTest = ()=>{
     )
 }
 
-const ModalOption = ({questionName})=>{
+const ModalOption = ({questionName, questionId})=>{
+    const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleChangeOption = (evt)=>setOption({
+        ...option,
+        question_id:questionId,
+        [evt.target.name]: evt.target.value
+    })
+    const handleOptionSubmit = async(evt)=>{
+        evt.preventDefault()
+        try {
+            const response = await axios.post(
+                'http://localhost:3030/api/questions/add-question-option',
+                option
+            )
+            if(response.status===200){
+                setOptions(options.concat([{
+                    option_name: option.option_name,
+                    option_value:option.option_value
+                }]))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
-            <Button variant="success" onClick={()=>setIsOpen(!isOpen)}>
+            <Button variant="info" onClick={()=>setIsOpen(!isOpen)}>
                 Agregar opción
             </Button>
+                {
+                    options.length > 0 ?
+                    <div className='pt-3'>
+                        {
+                            options.map((option, i)=>(
+                                <div key={i} className="border">
+                                    <span className="text-primary">Opción:</span>
+                                    <span>{option.option_name}</span>
+                                    <span className="text-primary">Valor:</span>
+                                    <span>{option.option_value}</span>
+                                    <div className={styles.buttons}>
+                                        <Button variant="primary">
+                                            <i className="bi bi-pencil-fill"></i>
+                                        </Button>
+                                        <Button variant="danger">
+                                            <i className="bi bi-trash3"></i>
+                                        </Button>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                    : null
+                }
             <Modal
             show={isOpen}
             onHide={()=>setIsOpen(!isOpen)}
@@ -170,14 +234,26 @@ const ModalOption = ({questionName})=>{
                     <Form.Label>Opción:</Form.Label>
                     <Form.Control
                     type="text"
-                    name='question_name'
+                    name='option_name'
                     autoComplete="off"
+                    onChange={handleChangeOption}
                     required
+                    />
+                    <Form.Label>Valor:</Form.Label>
+                    <Form.Control
+                    type="number"
+                    name='option_value'
+                    autoComplete="off"
+                    onChange={handleChangeOption}
+                    required
+                    min='0'
+                    max='1'
                     />
                     <Button
                     variant="info"
                     type='info'
                     className="mt-3"
+                    onClick={handleOptionSubmit}
                     >
                         Guardar opción
                     </Button>
