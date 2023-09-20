@@ -49,6 +49,7 @@ export const CreateTest = ()=>{
         } catch (error) {
             console.log(error)
         }
+        evt.target.reset()
     }
     const params = useParams()
     const id = parseInt(params.id)
@@ -112,7 +113,7 @@ export const CreateTest = ()=>{
             {
                 !isTest || !isOpened ? null
                 :
-                <Form>
+                <Form onSubmit={handleQuestionSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Pregunta:</Form.Label>
                     <Form.Control
@@ -125,7 +126,6 @@ export const CreateTest = ()=>{
                     <Button
                     variant="info"
                     type='info'
-                    onClick={handleQuestionSubmit}
                     className="mt-3"
                     >
                         Guardar pregunta
