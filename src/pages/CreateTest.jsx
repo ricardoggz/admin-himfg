@@ -49,7 +49,7 @@ export const CreateTest = ()=>{
     return (
         <Container>
             <h2 className="text-center pb-5">   
-                Crear test
+                Crear cuestionario
             </h2>
             <div className="d-flex justify-content-center pb-5">
                 <Button
@@ -97,7 +97,7 @@ export const CreateTest = ()=>{
                 </Form>
             }
             {
-                !isTest ? null
+                !isTest || !isOpened ? null
                 :
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -120,6 +120,9 @@ export const CreateTest = ()=>{
                     </Form.Group>
                 </Form>
             }
+            {
+                !isTest || !isOpened ? null
+                :
                 <div className="mt-5">
                 {
                     options.length > 0 ?
@@ -143,6 +146,7 @@ export const CreateTest = ()=>{
                     null
                 }
             </div>
+            }
         </Container>
     )
 }
