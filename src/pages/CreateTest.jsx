@@ -209,12 +209,8 @@ const ModalOption = ({questionName, questionId})=>{
                                     <span className="text-primary">Valor:</span>
                                     <span>{option.option_value}</span>
                                     <div className={styles.buttons}>
-                                        <Button variant="primary">
-                                            <i className="bi bi-pencil-fill"></i>
-                                        </Button>
-                                        <Button variant="danger">
-                                            <i className="bi bi-trash3"></i>
-                                        </Button>
+                                        <UpdateOPtion optionName={option.option_name}/>
+                                        <DeleteOption optionName={option.option_name}/>
                                     </div>
                                 </div>
                             ))
@@ -259,6 +255,94 @@ const ModalOption = ({questionName, questionId})=>{
                     </Button>
                     </Form.Group>
                     </Form>
+                </Modal.Body>
+            </Modal>
+        </>
+    )
+}
+
+const UpdateOPtion = ({optionName, questionId})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleChangeOption = (evt)=>setOption({
+        ...option,
+        //question_id:questionId,
+        [evt.target.name]: evt.target.value
+    })
+    return (
+        <>
+            <Button variant="primary" onClick={()=>setIsOpen(!isOpen)}>
+                <i className="bi bi-pencil-fill"></i>
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>Actualizar opción "{optionName}"</Modal.Header>
+                <Modal.Body>
+                    <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Opción:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name='option_name'
+                    autoComplete="off"
+                    onChange={handleChangeOption}
+                    required
+                    />
+                    <Form.Label>Valor:</Form.Label>
+                    <Form.Control
+                    type="number"
+                    name='option_value'
+                    autoComplete="off"
+                    onChange={handleChangeOption}
+                    required
+                    min='0'
+                    max='1'
+                    />
+                    <Button
+                    variant="info"
+                    type='info'
+                    className="mt-3"
+                    >
+                        Actualizar opción
+                    </Button>
+                    </Form.Group>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
+    )
+}
+
+const DeleteOption = ({optionName, questionId})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleChangeOption = (evt)=>setOption({
+        ...option,
+        //question_id:questionId,
+        [evt.target.name]: evt.target.value
+    })
+    return (
+        <>
+            <Button variant="danger" onClick={()=>setIsOpen(!isOpen)}>
+                <i className="bi bi-trash"></i>
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>
+                    ¿Seguro que desea eliminar la opción "{optionName}"?
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="danger" onClick={()=>setIsOpen(!isOpen)}>
+                        Si, eliminar
+                    </Button>
                 </Modal.Body>
             </Modal>
         </>
