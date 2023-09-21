@@ -1,13 +1,15 @@
 import { BrowserRouter } from "react-router-dom"
 import { AppRoutes } from "./routes"
-import { UserProvider } from './contexts'
+import { UserProvider, OptionProvider } from './contexts'
 
 function App() {
   return (
     <UserProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <OptionProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </OptionProvider>
     </UserProvider>
   )
 }
