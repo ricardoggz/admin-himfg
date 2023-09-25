@@ -170,7 +170,9 @@ export const CreateTest = ()=>{
 const ModalOption = ({questionName, questionId})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
-    const [option, setOption] = useState(null)
+    const [option, setOption] = useState({
+        option_id: Math.floor((Math.random() * 450000) + 450000),
+    })
     const handleChangeOption = (evt)=>setOption({
         ...option,
         question_id:questionId,
@@ -185,6 +187,7 @@ const ModalOption = ({questionName, questionId})=>{
             )
             if(response.status===200){
                 setOptions(options.concat([{
+                    ...option,
                     option_name: option.option_name,
                     option_value:option.option_value
                 }]))
@@ -193,6 +196,16 @@ const ModalOption = ({questionName, questionId})=>{
             console.log(error)
         }
     }
+    const handleDeleteOption= (index)=>{
+        const newOptions = [...options]
+        newOptions.splice(index,1)
+        setOptions(newOptions)
+    }
+    useEffect(()=>{
+        setOption({
+            option_id: Math.floor((Math.random() * 450000) + 450000),
+        })
+    },[options])
     return (
         <>
             <Button variant="info" onClick={()=>setIsOpen(!isOpen)}>
@@ -210,7 +223,11 @@ const ModalOption = ({questionName, questionId})=>{
                                     <span>{option.option_value}</span>
                                     <div className={styles.buttons}>
                                         <UpdateOPtion optionName={option.option_name}/>
-                                        <DeleteOption optionName={option.option_name}/>
+                                        <DeleteOption
+                                            optionName={option.option_name}
+                                            onDeleteOption={()=>handleDeleteOption(i)}
+                                            optionId={option.option_id}
+                                        />
                                     </div>
                                 </div>
                             ))
@@ -317,15 +334,24 @@ const UpdateOPtion = ({optionName, questionId})=>{
     )
 }
 
-const DeleteOption = ({optionName, questionId})=>{
+const DeleteOption = ({optionName, optionId, onDeleteOption})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [option, setOption] = useState(null)
-    const handleChangeOption = (evt)=>setOption({
-        ...option,
-        //question_id:questionId,
-        [evt.target.name]: evt.target.value
-    })
+    const handleDeleteOption = async(evt)=>{
+        try {
+            const response = await axios.delete(
+                'http://localhost:3030/api/questions/delete-question-option',{
+                    data:{option_id: optionId}
+                }
+            )
+            if(response.status === 200){
+                onDeleteOption()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <Button variant="danger" onClick={()=>setIsOpen(!isOpen)}>
@@ -337,10 +363,10 @@ const DeleteOption = ({optionName, questionId})=>{
             backdrop='static'
             >
                 <Modal.Header closeButton>
-                    ¿Seguro que desea eliminar la opción "{optionName}"?
+                    ¿Seguro que desea eliminar la opción "{optionName}" {optionId}?
                 </Modal.Header>
                 <Modal.Body>
-                    <Button variant="danger" onClick={()=>setIsOpen(!isOpen)}>
+                    <Button variant="danger" onClick={handleDeleteOption}>
                         Si, eliminar
                     </Button>
                 </Modal.Body>
