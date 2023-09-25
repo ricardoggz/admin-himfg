@@ -363,7 +363,7 @@ const DeleteOption = ({optionName, optionId, onDeleteOption})=>{
             backdrop='static'
             >
                 <Modal.Header closeButton>
-                    ¿Seguro que desea eliminar la opción "{optionName}" {optionId}?
+                    ¿Seguro que desea eliminar la opción "{optionName}"?
                 </Modal.Header>
                 <Modal.Body>
                     <Button variant="danger" onClick={handleDeleteOption}>
