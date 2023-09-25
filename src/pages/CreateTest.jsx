@@ -51,6 +51,11 @@ export const CreateTest = ()=>{
         }
         evt.target.reset()
     }
+    const handleDeleteQuestion= (index)=>{
+        const newOptions = [...options]
+        newOptions.splice(index,1)
+        setOptions(newOptions)
+    }
     const params = useParams()
     const id = parseInt(params.id)
     useEffect(()=>{
@@ -146,10 +151,23 @@ export const CreateTest = ()=>{
                                 <div key={i} className="border border-primary">
                                 <span className="text-center">Pregunta: {option.question_name}</span>
                                 <br />
-                                <ModalOption
-                                    questionName={option.question_name}
-                                    questionId={questionId}
-                                />
+                                <div className="mt-3 mb-3">
+                                    <DeleteQuestion
+                                        questionName={option.question_name}
+                                        onDeleteQuestion={()=>handleDeleteQuestion(i)}
+                                        questionId={questionId}
+                                    />
+                                    <span className="mb-2"/>
+                                    <UpdateQuestion
+                                        questionName={option.question_name}
+                                        questionId={questionId}
+                                    />
+                                    <span className="mb-2"/>
+                                    <ModalOption
+                                        questionName={option.question_name}
+                                        questionId={questionId}
+                                    />
+                                </div>
                                 </div>
                             </>
                         ))}
@@ -207,7 +225,7 @@ const ModalOption = ({questionName, questionId})=>{
         })
     },[options])
     return (
-        <>
+        <> 
             <Button variant="info" onClick={()=>setIsOpen(!isOpen)}>
                 Agregar opción
             </Button>
@@ -272,6 +290,93 @@ const ModalOption = ({questionName, questionId})=>{
                     </Button>
                     </Form.Group>
                     </Form>
+                </Modal.Body>
+            </Modal>
+        </>
+    )
+}
+
+const UpdateQuestion = ({questionName, questionId})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleChangeOption = (evt)=>setOption({
+        ...option,
+        //question_id:questionId,
+        [evt.target.name]: evt.target.value
+    })
+    return (
+        <>
+            <Button variant="success" onClick={()=>setIsOpen(!isOpen)}>
+                Editar pregunta
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>Actualizar pregunta "{questionName}"</Modal.Header>
+                <Modal.Body>
+                    <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Pregunta:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name='question_name'
+                    autoComplete="off"
+                    onChange={handleChangeOption}
+                    required
+                    />
+                    <Button
+                    variant="info"
+                    type='info'
+                    className="mt-3"
+                    >
+                        Actualizar pregunta
+                    </Button>
+                    </Form.Group>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
+    )
+}
+
+const DeleteQuestion = ({questionName, questionId, onDeleteQuestion})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleDeleteQuestion = async(evt)=>{
+        try {
+            const response = await axios.delete(
+                'http://localhost:3030/api/questions/delete-question-option',{
+                    data:{question_id: questionId}
+                }
+            )
+            if(response.status === 200){
+                onDeleteQuestion()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    return (
+        <>
+            <Button variant="danger" onClick={()=>setIsOpen(!isOpen)}>
+                Eliminar pregunta
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>
+                    ¿Seguro que desea eliminar la pregunta "{questionName}"?
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="danger" onClick={handleDeleteQuestion}>
+                        Si, eliminar
+                    </Button>
                 </Modal.Body>
             </Modal>
         </>
