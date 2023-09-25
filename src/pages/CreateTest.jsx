@@ -174,6 +174,8 @@ export const CreateTest = ()=>{
                         </div>
                         <div className="pt-5 pb-5">
                             <span className="fs-3">Total: {options.length} pregunta(s)</span>
+                            <br />
+                            <Button variant="success" className="mt-3"> Publicar cuestionario</Button>
                         </div>
                     </>
                     :
