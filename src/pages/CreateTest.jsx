@@ -112,6 +112,31 @@ export const CreateTest = ()=>{
                     >
                         Guardar
                     </Button>
+                    {
+                        !isTest ?
+                        null
+                        :
+                        <>
+                            <Button
+                                variant="success"
+                                type='submit'
+                                onClick={handleTestSubmit}
+                                className="mt-3"
+                                disabled={!isTest ? true : false}
+                            >
+                                Editar exámen
+                            </Button>
+                            <Button
+                                variant="danger"
+                                type='submit'
+                                onClick={handleTestSubmit}
+                                className="mt-3"
+                                disabled={!isTest ? true : false}
+                            >
+                                Eliminar exámen
+                            </Button>
+                        </>
+                    }
                     </Form.Group>
                 </Form>
             }
