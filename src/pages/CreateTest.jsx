@@ -351,7 +351,7 @@ const DeleteQuestion = ({questionName, questionId, onDeleteQuestion})=>{
     const handleDeleteQuestion = async(evt)=>{
         try {
             const response = await axios.delete(
-                'http://localhost:3030/api/questions/delete-question-option',{
+                'http://localhost:3030/api/questions/delete-question',{
                     data:{question_id: questionId}
                 }
             )
