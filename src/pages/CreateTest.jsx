@@ -33,6 +33,10 @@ export const CreateTest = ()=>{
             console.log(error)
         }
     }
+    const handleDeleteTest = ()=>{
+        setIsOpened(false)
+        setIsTest(false)
+    }
     const handleQuestionSubmit = async(evt)=>{
         evt.preventDefault()
         try {
@@ -126,15 +130,11 @@ export const CreateTest = ()=>{
                             >
                                 Editar exámen
                             </Button>
-                            <Button
-                                variant="danger"
-                                type='submit'
-                                onClick={handleTestSubmit}
-                                className="mt-3"
-                                disabled={!isTest ? true : false}
-                            >
-                                Eliminar exámen
-                            </Button>
+                            <DeleteTest
+                                onDeleteTest={()=>handleDeleteTest()}
+                                testId={test.test_id}
+                                testName={test.test_name}
+                            />
                         </>
                     }
                     </Form.Group>
@@ -209,6 +209,51 @@ export const CreateTest = ()=>{
             </div>
             }
         </Container>
+    )
+}
+
+const DeleteTest = ({testName, testId, onDeleteTest})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleDeleteTest = async(evt)=>{
+        try {
+            const response = await axios.delete(
+                'http://localhost:3030/api/questions/delete-test',{
+                    data:{test_id: testId}
+                }
+            )
+            if(response.status === 200){
+                onDeleteTest()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    return (
+        <>
+            <Button
+            variant="danger"
+            onClick={()=>setIsOpen(!isOpen)}
+            className="mt-3"
+            >
+                Eliminar exámen
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>
+                    ¿Seguro que desea eliminar el cuestionario "{testName}"?
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="danger" onClick={handleDeleteTest}>
+                        Si, eliminar
+                    </Button>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 
