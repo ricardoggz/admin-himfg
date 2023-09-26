@@ -37,6 +37,9 @@ export const CreateTest = ()=>{
         setIsOpened(false)
         setIsTest(false)
     }
+    const handleEditTest=(test)=>{
+        setTest(test)
+    }
     const handleQuestionSubmit = async(evt)=>{
         evt.preventDefault()
         try {
@@ -105,6 +108,7 @@ export const CreateTest = ()=>{
                     onChange={handleChange}
                     autoComplete="off"
                     readOnly={!isTest ? false : true}
+                    value={test.test_name}
                     required
                     />
                     <Button
@@ -123,6 +127,8 @@ export const CreateTest = ()=>{
                         <>
                             <UpdateTest
                                 testName={test.test_name}
+                                test={test}
+                                onUpdateTest={handleEditTest}
                             />
                             <DeleteTest
                                 onDeleteTest={()=>handleDeleteTest()}
@@ -251,15 +257,19 @@ const DeleteTest = ({testName, testId, onDeleteTest})=>{
     )
 }
 
-const UpdateTest = ({testName, questionId})=>{
+const UpdateTest = ({testName, test, onUpdateTest})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [option, setOption] = useState(null)
-    const handleChangeOption = (evt)=>setOption({
-        ...option,
+    const handleChangeTest = (evt)=>setOption({
+        ...test,
         //question_id:questionId,
         [evt.target.name]: evt.target.value
     })
+    const handleSubmit = (evt)=>{
+        evt.preventDefault()
+        onUpdateTest(option)
+    }
     return (
         <>
             <Button variant="success" onClick={()=>setIsOpen(!isOpen)} className="mt-3">
@@ -279,13 +289,15 @@ const UpdateTest = ({testName, questionId})=>{
                     type="text"
                     name='test_name'
                     autoComplete="off"
-                    onChange={handleChangeOption}
+                    defaultValue={testName}
+                    onChange={handleChangeTest}
                     required
                     />
                     <Button
                     variant="info"
                     type='info'
                     className="mt-3"
+                    onClick={handleSubmit}
                     >
                         Actualizar cuestionario
                     </Button>
