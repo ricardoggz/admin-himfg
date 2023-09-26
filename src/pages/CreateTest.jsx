@@ -121,15 +121,9 @@ export const CreateTest = ()=>{
                         null
                         :
                         <>
-                            <Button
-                                variant="success"
-                                type='submit'
-                                onClick={handleTestSubmit}
-                                className="mt-3"
-                                disabled={!isTest ? true : false}
-                            >
-                                Editar exámen
-                            </Button>
+                            <UpdateTest
+                                testName={test.test_name}
+                            />
                             <DeleteTest
                                 onDeleteTest={()=>handleDeleteTest()}
                                 testId={test.test_id}
@@ -251,6 +245,52 @@ const DeleteTest = ({testName, testId, onDeleteTest})=>{
                     <Button variant="danger" onClick={handleDeleteTest}>
                         Si, eliminar
                     </Button>
+                </Modal.Body>
+            </Modal>
+        </>
+    )
+}
+
+const UpdateTest = ({testName, questionId})=>{
+    const [options, setOptions]= useState([])
+    const [isOpen, setIsOpen] = useState(false)
+    const [option, setOption] = useState(null)
+    const handleChangeOption = (evt)=>setOption({
+        ...option,
+        //question_id:questionId,
+        [evt.target.name]: evt.target.value
+    })
+    return (
+        <>
+            <Button variant="success" onClick={()=>setIsOpen(!isOpen)} className="mt-3">
+                Editar cuestionario
+            </Button>
+            <Modal
+            show={isOpen}
+            onHide={()=>setIsOpen(!isOpen)}
+            backdrop='static'
+            >
+                <Modal.Header closeButton>Actualizar cuestionario "{testName}"</Modal.Header>
+                <Modal.Body>
+                    <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Título de cuestionario:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name='test_name'
+                    autoComplete="off"
+                    onChange={handleChangeOption}
+                    required
+                    />
+                    <Button
+                    variant="info"
+                    type='info'
+                    className="mt-3"
+                    >
+                        Actualizar cuestionario
+                    </Button>
+                    </Form.Group>
+                    </Form>
                 </Modal.Body>
             </Modal>
         </>
