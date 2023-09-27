@@ -40,6 +40,10 @@ export const CreateTest = ()=>{
     const handleEditTest=(test)=>{
         setTest(test)
     }
+    const handleEditQuestion=(i, newElement)=>{
+        const newElements = options.splice(i, 1, newElement)
+        setOptions(options.splice(i, 1, newElement))
+    }
     const handleQuestionSubmit = async(evt)=>{
         evt.preventDefault()
         try {
@@ -187,6 +191,10 @@ export const CreateTest = ()=>{
                                     <UpdateQuestion
                                         questionName={option.question_name}
                                         questionId={questionId}
+                                        question={question}
+                                        onUpdateQuestion={handleEditQuestion}
+                                        testId={test.test_id}
+                                        questionIndex={i}
                                     />
                                     <span className="mb-2"/>
                                     <ModalOption
@@ -431,15 +439,31 @@ const ModalOption = ({questionName, questionId})=>{
     )
 }
 
-const UpdateQuestion = ({questionName, questionId})=>{
+const UpdateQuestion = ({questionName, question, questionId, onUpdateQuestion, testId, questionIndex})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [option, setOption] = useState(null)
     const handleChangeOption = (evt)=>setOption({
-        ...option,
+        ...question,
         //question_id:questionId,
         [evt.target.name]: evt.target.value
     })
+    const handleSubmit = async(evt)=>{
+        evt.preventDefault()
+        try {
+            const response = await axios.put(
+                `http://localhost:3030/api/questions/edit-question/${questionId}`,
+                {question_name: option.question_name, test_id: testId}
+            )
+            if(response.status===200){
+                onUpdateQuestion(questionIndex, {
+                    question_name: option.question_name
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <Button variant="success" onClick={()=>setIsOpen(!isOpen)}>
@@ -460,12 +484,14 @@ const UpdateQuestion = ({questionName, questionId})=>{
                     name='question_name'
                     autoComplete="off"
                     onChange={handleChangeOption}
+                    defaultValue={questionName}
                     required
                     />
                     <Button
                     variant="info"
                     type='info'
                     className="mt-3"
+                    onClick={handleSubmit}
                     >
                         Actualizar pregunta
                     </Button>
