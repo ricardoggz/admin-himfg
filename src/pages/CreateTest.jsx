@@ -129,6 +129,7 @@ export const CreateTest = ()=>{
                                 testName={test.test_name}
                                 test={test}
                                 onUpdateTest={handleEditTest}
+                                testId={test.test_id}
                             />
                             <DeleteTest
                                 onDeleteTest={()=>handleDeleteTest()}
@@ -257,7 +258,7 @@ const DeleteTest = ({testName, testId, onDeleteTest})=>{
     )
 }
 
-const UpdateTest = ({testName, test, onUpdateTest})=>{
+const UpdateTest = ({testName, test, onUpdateTest, testId})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [option, setOption] = useState(null)
@@ -266,9 +267,19 @@ const UpdateTest = ({testName, test, onUpdateTest})=>{
         //question_id:questionId,
         [evt.target.name]: evt.target.value
     })
-    const handleSubmit = (evt)=>{
+    const handleSubmit = async(evt)=>{
         evt.preventDefault()
-        onUpdateTest(option)
+        try {
+            const response = await axios.put(
+                `http://localhost:3030/api/questions/edit-test/${testId}`,
+                {test_name: option.test_name}
+            )
+            if(response.status===200){
+                onUpdateTest(option)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <>
