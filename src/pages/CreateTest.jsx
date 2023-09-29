@@ -362,6 +362,11 @@ const ModalOption = ({questionName, questionId})=>{
         newOptions.splice(index,1)
         setOptions(newOptions)
     }
+    const handleEditOption=(i, newElement)=>{
+        const newOptions = [...options]
+        newOptions.splice(i,1, newElement)
+        setOptions(newOptions)
+    }
     useEffect(()=>{
         setOption({
             option_id: Math.floor((Math.random() * 450000) + 450000),
@@ -376,18 +381,25 @@ const ModalOption = ({questionName, questionId})=>{
                     options.length > 0 ?
                     <div className='pt-3'>
                         {
-                            options.map((option, i)=>(
+                            options.map((e, i)=>(
                                 <div key={i} className="border">
                                     <span className="text-primary">Opción:</span>
-                                    <span>{option.option_name}</span>
+                                    <span>{e.option_name}</span>
                                     <span className="text-primary">Valor:</span>
-                                    <span>{option.option_value}</span>
+                                    <span>{e.option_value}</span>
                                     <div className={styles.buttons}>
-                                        <UpdateOPtion optionName={option.option_name}/>
+                                        <UpdateOPtion
+                                            optionName={e.option_name}
+                                            optionPrevState={e}
+                                            onUpdateOption={handleEditOption}
+                                            optionId={e.option_id}
+                                            questionId={questionId}
+                                            optionIndex={i}
+                                        />
                                         <DeleteOption
-                                            optionName={option.option_name}
+                                            optionName={e.option_name}
                                             onDeleteOption={()=>handleDeleteOption(i)}
-                                            optionId={option.option_id}
+                                            optionId={e.option_id}
                                         />
                                     </div>
                                 </div>
@@ -544,15 +556,37 @@ const DeleteQuestion = ({questionName, questionId, onDeleteQuestion})=>{
     )
 }
 
-const UpdateOPtion = ({optionName, questionId})=>{
+const UpdateOPtion = ({optionName, optionPrevState, onUpdateOption, optionId, questionId, optionIndex})=>{
     const [options, setOptions]= useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [option, setOption] = useState(null)
     const handleChangeOption = (evt)=>setOption({
-        ...option,
+        ...optionPrevState,
         //question_id:questionId,
         [evt.target.name]: evt.target.value
     })
+    const handleSubmit = async(evt)=>{
+        evt.preventDefault()
+        try {
+            const response = await axios.put(
+                `http://localhost:3030/api/questions/edit-question-option/${optionId}`,
+                {
+                    option_name: option.option_name,
+                    option_value: option.option_value,
+                    question_id:questionId
+                }
+            )
+            if(response.status===200){
+                onUpdateOption(optionIndex, {
+                    ...option,
+                    option_name: option.option_name,
+                    option_value: option.option_value
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <Button variant="primary" onClick={()=>setIsOpen(!isOpen)}>
@@ -574,6 +608,7 @@ const UpdateOPtion = ({optionName, questionId})=>{
                     autoComplete="off"
                     onChange={handleChangeOption}
                     required
+                    defaultValue={optionName}
                     />
                     <Form.Label>Valor:</Form.Label>
                     <Form.Control
@@ -589,6 +624,7 @@ const UpdateOPtion = ({optionName, questionId})=>{
                     variant="info"
                     type='info'
                     className="mt-3"
+                    onClick={handleSubmit}
                     >
                         Actualizar opción
                     </Button>
