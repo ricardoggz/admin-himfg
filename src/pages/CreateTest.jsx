@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import Swal from "sweetalert2"
 import { Container, Button, Form, Modal } from "react-bootstrap"
 import styles from './createTest.module.css'
 
@@ -17,6 +18,8 @@ export const CreateTest = ()=>{
         test_id:test.test_id,
         question_name:test.question_name,
     })
+    const params = useParams()
+    const id = parseInt(params.id)
     const showForm = ()=> setIsOpened(!isOpened)
     const handleChange = (evt)=>setTest({
         ...test,
@@ -67,8 +70,22 @@ export const CreateTest = ()=>{
         newOptions.splice(index,1)
         setOptions(newOptions)
     }
-    const params = useParams()
-    const id = parseInt(params.id)
+    const addTest = async(evt)=>{
+        evt.preventDefault()
+        try {
+            const response = await axios.put(`http://localhost:3030/api/courses/edit-test-course/${id}`, {
+                test_id: test.test_id
+            })
+            if(response.status===200){
+              Swal.fire({
+                title: 'Cuestionario publicado',
+                icon:'success'
+              })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     useEffect(()=>{
         setQuestion({
             question_id:Math.floor((Math.random() * 450000) + 450000),
@@ -209,7 +226,13 @@ export const CreateTest = ()=>{
                         <div className="pt-5 pb-5">
                             <span className="fs-3">Total: {options.length} pregunta(s)</span>
                             <br />
-                            <Button variant="success" className="mt-3"> Publicar cuestionario</Button>
+                            <Button
+                                variant="success"
+                                className="mt-3"
+                                onClick={addTest}
+                            >
+                                Publicar cuestionario
+                            </Button>
                         </div>
                     </>
                     :
