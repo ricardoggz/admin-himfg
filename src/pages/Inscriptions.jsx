@@ -8,11 +8,15 @@ import { Loader } from "../components"
 import { uploadFile } from "../services"
 
 export const Inscriptions = ()=>{
-    const randomFileName = `${uuidv4()}.pdf`
     const [formData, setFormData] = useState(null)
+    const [fileName, setFileName] = useState('sin-nombre')
     const [courses, isLoading]= useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/payments/all-payments`
     })
+    const randomFileName = ()=> {
+        let fileName = `${uuidv4()}.pdf`
+        setFileName(fileName)
+    }
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
@@ -37,15 +41,18 @@ export const Inscriptions = ()=>{
         ))
     }
     const handleChange = (evt)=>{
+        randomFileName()
         setFormData({
             [evt.target.name]: evt.target.files[0],
-            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${randomFileName}`
+            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
         })
     }
     const handleSubmit = (evt)=>{
         evt.preventDefault()
-        uploadFile({file: formData.pdfFile, fileName:randomFileName})
+        uploadFile({file: formData.pdfFile, fileName:fileName})
     }
+    console.log(fileName)
+    console.log(formData)
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
