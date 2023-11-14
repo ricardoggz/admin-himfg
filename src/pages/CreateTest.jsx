@@ -28,7 +28,7 @@ export const CreateTest = ()=>{
     const handleTestSubmit = async(evt)=>{
         evt.preventDefault()
         try {
-            const response = await axios.post('http://localhost:3030/api/questions/add-test', test)
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}api/questions/add-test`, test)
             if(response.status===200){
                 setIsTest(true)
             }
@@ -51,7 +51,7 @@ export const CreateTest = ()=>{
         evt.preventDefault()
         try {
             const response = await axios.post(
-                'http://localhost:3030/api/questions/add-question',
+                `${import.meta.env.VITE_BASE_URL}api/questions/add-question`,
                 question
             )
             if(response.status===200){
@@ -73,7 +73,7 @@ export const CreateTest = ()=>{
     const addTest = async(evt)=>{
         evt.preventDefault()
         try {
-            const response = await axios.put(`http://localhost:3030/api/courses/edit-test-course/${id}`, {
+            const response = await axios.put(`${import.meta.env.VITE_BASE_URL}api/courses/edit-test-course/${id}`, {
                 test_id: test.test_id
             })
             if(response.status===200){
@@ -251,7 +251,7 @@ const DeleteTest = ({testName, testId, onDeleteTest})=>{
     const handleDeleteTest = async(evt)=>{
         try {
             const response = await axios.delete(
-                'http://localhost:3030/api/questions/delete-test',{
+                `${import.meta.env.VITE_BASE_URL}api/questions/delete-test`,{
                     data:{test_id: testId}
                 }
             )
@@ -302,7 +302,7 @@ const UpdateTest = ({testName, test, onUpdateTest, testId})=>{
         evt.preventDefault()
         try {
             const response = await axios.put(
-                `http://localhost:3030/api/questions/edit-test/${testId}`,
+                `${import.meta.env.VITE_BASE_URL}api/questions/edit-test/${testId}`,
                 {test_name: option.test_name}
             )
             if(response.status===200){
@@ -366,7 +366,7 @@ const ModalOption = ({questionName, questionId})=>{
         evt.preventDefault()
         try {
             const response = await axios.post(
-                'http://localhost:3030/api/questions/add-question-option',
+                `${import.meta.env.VITE_BASE_URL}api/questions/add-question-option`,
                 option
             )
             if(response.status===200){
@@ -487,7 +487,7 @@ const UpdateQuestion = ({questionName, question, questionId, onUpdateQuestion, t
         evt.preventDefault()
         try {
             const response = await axios.put(
-                `http://localhost:3030/api/questions/edit-question/${questionId}`,
+                `${import.meta.env.VITE_BASE_URL}api/questions/edit-question/${questionId}`,
                 {question_name: option.question_name, test_id: testId}
             )
             if(response.status===200){
@@ -545,7 +545,7 @@ const DeleteQuestion = ({questionName, questionId, onDeleteQuestion})=>{
     const handleDeleteQuestion = async(evt)=>{
         try {
             const response = await axios.delete(
-                'http://localhost:3030/api/questions/delete-question',{
+                `${import.meta.env.VITE_BASE_URL}api/questions/delete-question`,{
                     data:{question_id: questionId}
                 }
             )
@@ -592,7 +592,7 @@ const UpdateOPtion = ({optionName, optionPrevState, onUpdateOption, optionId, qu
         evt.preventDefault()
         try {
             const response = await axios.put(
-                `http://localhost:3030/api/questions/edit-question-option/${optionId}`,
+                `${import.meta.env.VITE_BASE_URL}api/questions/edit-question-option/${optionId}`,
                 {
                     option_name: option.option_name,
                     option_value: option.option_value,
@@ -666,7 +666,7 @@ const DeleteOption = ({optionName, optionId, onDeleteOption})=>{
     const handleDeleteOption = async(evt)=>{
         try {
             const response = await axios.delete(
-                'http://localhost:3030/api/questions/delete-question-option',{
+                `${import.meta.env.VITE_BASE_URL}api/questions/delete-question-option`,{
                     data:{option_id: optionId}
                 }
             )
