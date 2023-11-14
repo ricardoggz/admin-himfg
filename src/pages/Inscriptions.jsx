@@ -6,6 +6,7 @@ import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
 import { uploadFile } from "../services"
+import axios from "axios"
 
 export const Inscriptions = ()=>{
     const [formData, setFormData] = useState(null)
@@ -48,8 +49,7 @@ export const Inscriptions = ()=>{
             //student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
         })
     }
-    const handleSubmit = (evt)=>{
-        evt.preventDefault()
+    const handleSubmit = async(id)=>{
         uploadFile({file: formData.pdfFile, fileName:fileName})
         setFormData({
             //[evt.target.name]: evt.target.files[0],
@@ -156,26 +156,30 @@ export const Inscriptions = ()=>{
                                 </>
                             }
                             <td>
-                                <form onSubmit={handleSubmit}>
+                                <div>
                                     <input
                                         type='file'
                                         name='pdfFile'
                                         required
                                         onChange={handleChange}
                                     />
-                                    <button>Subir archivo</button>
-                                </form>
+                                    <button onClick={()=>handleSubmit(course.student_id)}>
+                                        Subir archivo
+                                    </button>
+                                </div>
                             </td>
                             <td>
-                                <form onSubmit={handleSubmit}>
+                                <div>
                                     <input
                                         type='file'
                                         name='pdfFile'
                                         required
                                         onChange={handleChange}
                                     />
-                                    <button>Subir archivo</button>
-                                </form>
+                                    <button onClick={()=>handleSubmit(course.student_id)}>
+                                        Subir archivo
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))
