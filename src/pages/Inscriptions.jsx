@@ -44,15 +44,17 @@ export const Inscriptions = ()=>{
         randomFileName()
         setFormData({
             [evt.target.name]: evt.target.files[0],
-            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
+            //student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
         })
     }
     const handleSubmit = (evt)=>{
         evt.preventDefault()
         uploadFile({file: formData.pdfFile, fileName:fileName})
+        setFormData({
+            //[evt.target.name]: evt.target.files[0],
+            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
+        })
     }
-    console.log(fileName)
-    console.log(formData)
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
