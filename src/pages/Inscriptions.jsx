@@ -25,6 +25,7 @@ export const Inscriptions = ()=>{
         filteredCourses = courses.filter((course)=> course.course_id === id)
         csvStudents=filteredCourses.map((student)=>(
             {
+                id: student.student_id,
                 nombre: student.student_name,
                 edad: student.student_age,
                 teléfono: student.student_phone,
