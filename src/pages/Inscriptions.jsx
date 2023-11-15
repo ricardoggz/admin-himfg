@@ -10,13 +10,12 @@ import axios from "axios"
 
 export const Inscriptions = ()=>{
     const [formData, setFormData] = useState(null)
-    const [fileName, setFileName] = useState('sin-nombre')
+    const [fileName, setFileName] = useState('')
     const [courses, isLoading]= useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/payments/all-payments`
     })
     const randomFileName = ()=> {
-        let fileName = `${uuidv4()}.pdf`
-        return setFileName(fileName)
+        return `${uuidv4()}.pdf`
     }
     const params = useParams()
     let id = parseInt(params.id)
@@ -43,27 +42,24 @@ export const Inscriptions = ()=>{
         ))
     }
     const handleChange = (evt)=>{
+        const newFileName = randomFileName()
+        setFileName(newFileName)
         setFormData({
             [evt.target.name]: evt.target.files[0],
-            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
+            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${newFileName}`
         })
-        randomFileName()
     }
     const handleSubmit = async(id)=>{
-        uploadFile({file: formData.pdfFile, fileName:fileName})
-        setFormData({
-            //[evt.target.name]: evt.target.files[0],
-            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
-        })
         const resp = await axios.put(
             `${import.meta.env.VITE_BASE_URL}api/payments/edit-payment/${id}`,
             {
                 payment_degree: formData.student_constance
             }
         )
-        console.log(resp)
+        if(resp.status===200){
+            uploadFile({file: formData.pdfFile, fileName:fileName})
+        }
     }
-    console.log(formData)
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
