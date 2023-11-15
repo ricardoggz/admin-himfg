@@ -16,7 +16,7 @@ export const Inscriptions = ()=>{
     })
     const randomFileName = ()=> {
         let fileName = `${uuidv4()}.pdf`
-        setFileName(fileName)
+        return setFileName(fileName)
     }
     const params = useParams()
     let id = parseInt(params.id)
@@ -43,11 +43,11 @@ export const Inscriptions = ()=>{
         ))
     }
     const handleChange = (evt)=>{
-        randomFileName()
         setFormData({
             [evt.target.name]: evt.target.files[0],
-            //student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
+            student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
         })
+        randomFileName()
     }
     const handleSubmit = async(id)=>{
         uploadFile({file: formData.pdfFile, fileName:fileName})
@@ -55,7 +55,15 @@ export const Inscriptions = ()=>{
             //[evt.target.name]: evt.target.files[0],
             student_constance:`https://archivos.him.edu.mx/constancias-cursos/${fileName}`
         })
+        const resp = await axios.put(
+            `${import.meta.env.VITE_BASE_URL}api/payments/edit-payment/${id}`,
+            {
+                payment_degree: formData.student_constance
+            }
+        )
+        console.log(resp)
     }
+    console.log(formData)
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
