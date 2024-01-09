@@ -134,7 +134,7 @@ export const Inscriptions = ()=>{
                             </td>
                             <td>{course.payment_reference}</td>
                             {
-                                course.student_license && course.student_license_part_2 ?
+                                course.student_license ?
                                 <>
                                     <td>
                                         <a
@@ -144,7 +144,15 @@ export const Inscriptions = ()=>{
                                             Ver documentación
                                         </a>
                                     </td>
-                                    <td>
+                                </>
+                                :
+                                <>
+                                    <td>Sin documentación</td>
+                                </>
+                            }
+                            {
+                                course.student_license_part_2 ?
+                                <td>
                                     <a
                                     href={`${course.student_license_part_2}`}
                                     target="_blank"
@@ -152,12 +160,8 @@ export const Inscriptions = ()=>{
                                         Ver documentación
                                     </a>
                                 </td>
-                                </>
                                 :
-                                <>
-                                    <td>Sin documentación</td>
-                                    <td>Sin documentación</td>
-                                </>
+                                <td>Sin documentación</td>
                             }
                             <td>
                                 <div>
