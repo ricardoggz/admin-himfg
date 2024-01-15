@@ -17,6 +17,7 @@ export const Inscriptions = ()=>{
     const randomFileName = ()=> {
         return `${uuidv4()}.pdf`
     }
+    console.log(courses)
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
@@ -93,6 +94,7 @@ export const Inscriptions = ()=>{
                     <th>Lugar de procedencia</th>
                     <th>Monto pagado</th>
                     <th>Referencia de pago</th>
+                    <th>Fecha y hora de inscripción</th>
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
                     <th>Subir constancia de asistencia</th>
@@ -133,6 +135,7 @@ export const Inscriptions = ()=>{
                                 }
                             </td>
                             <td>{course.payment_reference}</td>
+                            <td>{course.payment_date}</td>
                             {
                                 course.student_license ?
                                 <>
