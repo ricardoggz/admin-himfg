@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid'
 import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
+import moment from "moment"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
 import { uploadFile } from "../services"
@@ -135,7 +136,11 @@ export const Inscriptions = ()=>{
                                 }
                             </td>
                             <td>{course.payment_reference}</td>
-                            <td>{course.payment_date}</td>
+                            <td>
+                                {
+                                    moment(course.payment_date).format('DD/MM/YYYY HH:mm:ss')
+                                }
+                            </td>
                             {
                                 course.student_license ?
                                 <>
