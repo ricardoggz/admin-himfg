@@ -96,6 +96,7 @@ export const Inscriptions = ()=>{
                     <th>Monto pagado</th>
                     <th>Referencia de pago</th>
                     <th>Fecha y hora de inscripción</th>
+                    <th>Calificación</th>
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
                     <th>Subir constancia de asistencia</th>
@@ -139,6 +140,14 @@ export const Inscriptions = ()=>{
                             <td>
                                 {
                                     moment(course.payment_date).format('DD/MM/YYYY HH:mm:ss')
+                                }
+                            </td>
+                            <td>
+                                {
+                                    !course.payment_grade ?
+                                    'Sin calificación'
+                                    :
+                                    course.payment_grade
                                 }
                             </td>
                             {
