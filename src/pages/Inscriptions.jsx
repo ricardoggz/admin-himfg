@@ -99,8 +99,6 @@ export const Inscriptions = ()=>{
                     <th>Calificación</th>
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
-                    <th>Subir constancia de asistencia</th>
-                    <th>Subir constancia de acreditación</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -180,32 +178,6 @@ export const Inscriptions = ()=>{
                                 :
                                 <td>Sin documentación</td>
                             }
-                            <td>
-                                <div>
-                                    <input
-                                        type='file'
-                                        name='pdfFile'
-                                        required
-                                        onChange={handleChange}
-                                    />
-                                    <button onClick={()=>handleSubmit(course.student_id)}>
-                                        Subir archivo
-                                    </button>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <input
-                                        type='file'
-                                        name='pdfFile'
-                                        required
-                                        onChange={handleChange}
-                                    />
-                                    <button onClick={()=>handleSubmit(course.student_id)}>
-                                        Subir archivo
-                                    </button>
-                                </div>
-                            </td>
                         </tr>
                     ))
                     :
