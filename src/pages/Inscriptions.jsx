@@ -99,6 +99,7 @@ export const Inscriptions = ()=>{
                     <th>Calificación</th>
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
+                    <th>Manera en la que toma el curso</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -177,6 +178,18 @@ export const Inscriptions = ()=>{
                                 </td>
                                 :
                                 <td>Sin documentación</td>
+                            }
+                            {
+                                course.payment_modality  && course.payment_modality === 'presencial'?
+                                <td>Presencial</td>
+                                :
+                                null
+                            }
+                            {
+                                course.payment_modality  && course.payment_modality === 'en_linea'?
+                                <td>En línea</td>
+                                :
+                                null
                             }
                         </tr>
                     ))
