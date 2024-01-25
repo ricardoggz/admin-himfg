@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { InputGroup, Button, Form, ListGroup } from "react-bootstrap"
 import { Loader } from '../../components'
 import { useFetch } from '../../hooks'
 import { coursesOptions } from './coursesOptions.module.css'
+import { UserContext } from "../../contexts/UserContext"
 
 export const CoursesOptions =({title})=>{
+    const { user } = useContext(UserContext)
     const [search, setSearch] = useState([])
     const [courses, isLoading] = useFetch({
         url: `${import.meta.env.VITE_BASE_URL}api/courses/all-courses`
@@ -58,12 +60,18 @@ export const CoursesOptions =({title})=>{
                                 <Link to={`curso/${course.course_id}`}>
                                     {course.course_name}
                                 </Link>
-                                <Link
-                                className="border border-primary btn btn-light"
-                                to={`crear-test/${course.course_id}`}
-                                >
-                                    Agregar test
-                                </Link>
+                                {
+                                    user.department_id === "2" ?
+                                    <Link
+                                        className="border border-primary btn btn-light"
+                                        to={`crear-test/${course.course_id}`}
+                                        >
+                                        Agregar test
+                                    </Link>
+                                    :
+                                    null
+                                }
+                                
                             </ListGroup.Item>
                         ))
                     }
