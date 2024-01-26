@@ -3,6 +3,7 @@ import { CSVLink } from "react-csv"
 import { Table } from "react-bootstrap"
 import { useFetch } from '../hooks'
 import { Loader } from "../components"
+import moment from "moment"
 
 export const Invoices = ()=>{
     const [courses, isLoading]= useFetch({
@@ -54,6 +55,7 @@ export const Invoices = ()=>{
                     <th>Constancia de situacion fiscal</th>
                     <th>Facturación</th>
                     <th>Referencia de pago</th>
+                    <th>Fecha y hora de inscripción</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -98,6 +100,11 @@ export const Invoices = ()=>{
                                 <td>No</td>
                             }
                             <td>{course.payment_reference}</td>
+                            <td>
+                                {
+                                    moment(course.payment_date).format('DD/MM/YYYY HH:mm:ss')
+                                }
+                            </td>
                         </tr>
                     ))
                     :
