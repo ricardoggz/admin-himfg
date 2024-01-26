@@ -111,7 +111,11 @@ export const Inscriptions = ()=>{
                             <td>{course.student_name}</td>
                             <td>{course.student_age} años</td>
                             <td>{course.student_phone}</td>
-                            <td>{course.student_email}</td>
+                            <td>
+                                <a href={`mailto:${course.student_email}`}>
+                                    {course.student_email}
+                                </a>
+                            </td>
                             <td>{course.student_password}</td>
                             {
                                 course.student_grade === 'undefined'
