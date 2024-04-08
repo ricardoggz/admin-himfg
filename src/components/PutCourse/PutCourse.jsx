@@ -216,6 +216,13 @@ export const PutCourse = ({ propCourse })=>{
                     onChange={onChange}
                   />
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>Estatus del curso:</Form.Label>
+                  <Form.Select>
+                  <option value="ACTIVO">Activo</option>
+                  <option value="INACTIVO">Inactivo</option>
+                  </Form.Select>
+                </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
