@@ -1,4 +1,5 @@
 export * from './Home'
+export * from './Pregrade'
 export * from './Dashboard'
 export * from './CreateTest'
 export * from './Inscriptions'

@@ -7,6 +7,7 @@ import { Invoices } from './Invoices'
 import { CreateTest } from "./CreateTest"
 import { UserContext } from "../contexts/UserContext"
 import { CoursesTable, NavBar, CoursesOptions, AddCourse } from '../components'
+import { Pregrade } from "./Pregrade"
 
 export const Dashboard = ()=>{
     const { user } = useContext(UserContext)
@@ -63,6 +64,22 @@ export const Dashboard = ()=>{
                     <Routes>
                         <Route path='curso/:id' element={<Invoices />}/>
                         <Route path='/' element={<CoursesOptions title='Seleccione un curso para ver datos fiscales de alumnos'/>}/>
+                    </Routes>
+                </>
+            )
+        }
+        if(user.department_id === "4"){
+            return (
+                <>
+                    <NavBar>
+                        <li className="nav-item">
+                            <Link to='/dashboard' className="nav-link">
+                                Inicio
+                            </Link>
+                        </li>
+                    </NavBar>
+                    <Routes>
+                        <Route path='/' element={<Pregrade/>}/>
                     </Routes>
                 </>
             )
