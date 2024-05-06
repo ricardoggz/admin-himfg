@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import {
     Container,
     Nav,
@@ -9,7 +10,7 @@ import {
 import { UserContext } from '../../contexts'
 
 export const NavBar = ({children})=>{
-  const { logout }= useContext(UserContext)
+  const { user, logout }= useContext(UserContext)
     return (
         <Navbar className="shadow p-3 mb-5 bg-white rounded" expand="xxl">
           <Container fluid>
@@ -28,6 +29,16 @@ export const NavBar = ({children})=>{
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                     { children }
+                    {
+                      user && user.department_id === '4' ?
+                      <li className="nav-item">
+                        <Link to='/dashboard' className="nav-link">
+                            Inscripciones posgrado
+                        </Link>
+                      </li>
+                      :
+                      null
+                    }
                     <li>
                       <Button variant="danger" onClick={logout}>
                         Cerrar sesión

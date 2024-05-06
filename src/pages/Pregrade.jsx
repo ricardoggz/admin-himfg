@@ -43,7 +43,40 @@ export const Pregrade = ()=>{
         }
     }
     return (
-        <>  
+        <>
+            <div className="d-flex justify-content-center pb-5">
+                <h1>Inscripciones pregrado</h1>
+            </div>
+            <Table variant="success" responsive>
+                <thead className="table-dark">
+                <tr>
+                    <th>Número de inscripción</th>
+                    <th>Acepta reglamento</th>
+                    <th>Servicio o departamento receptor</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de término</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Sexo</th>
+                    <th>Nacionalidad</th>
+                    <th>Estado civil</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Lugar de nacimiento</th>
+                    <th>Fecha y hora de inscripción</th>
+                    <th>Idiomas que habla</th>
+                    <th>Domicilio permanente</th>
+                    <th>Código postal</th>
+                    <th>Alcaldía / municipio</th>
+                    <th>Ciudad</th>
+                    <th>País</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ricardo José Guevara Guzmán</td>
+                    </tr>
+                </tbody>
+                </Table>
         </>
     )
 }
