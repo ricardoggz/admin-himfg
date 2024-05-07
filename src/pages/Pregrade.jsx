@@ -13,7 +13,7 @@ export const Pregrade = ()=>{
     const [formData, setFormData] = useState(null)
     const [fileName, setFileName] = useState('')
     const [users, isLoading]= useFetch({
-        url: `${import.meta.env.VITE_BASE_URL}api/payments/all-payments`
+        url: `${import.meta.env.VITE_BASE_URL}api/inscriptions/all-pregrade-inscriptions`
     })
     const randomFileName = ()=> {
         return `${uuidv4()}.pdf`
@@ -42,12 +42,15 @@ export const Pregrade = ()=>{
             uploadFile({file: formData.pdfFile, fileName:fileName})
         }
     }
+    const thStyle={
+        width:'100%',
+    }
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
                 <h1>Inscripciones pregrado</h1>
             </div>
-            <Table variant="success" responsive>
+            <Table variant="success" responsive striped>
                 <thead className="table-dark">
                 <tr>
                     <th>Número de inscripción</th>
@@ -58,24 +61,95 @@ export const Pregrade = ()=>{
                     <th>Nombre</th>
                     <th>Edad</th>
                     <th>Sexo</th>
-                    <th>Nacionalidad</th>
                     <th>Estado civil</th>
                     <th>Fecha de nacimiento</th>
                     <th>Lugar de nacimiento</th>
-                    <th>Fecha y hora de inscripción</th>
                     <th>Idiomas que habla</th>
                     <th>Domicilio permanente</th>
                     <th>Código postal</th>
                     <th>Alcaldía / municipio</th>
                     <th>Ciudad</th>
                     <th>País</th>
+                    <th>Teléfono particular</th>
+                    <th>Teléfono de casa</th>
+                    <th>Correo elctrónico</th>
+                    <th>Escuela</th>
+                    <th>Carrera</th>
+                    <th>Promedio</th>
+                    <th>Contacto de la escuela</th>
+                    <th>Fotografía</th>
+                    <th>Calificaciones</th>
+                    <th>Certificado médico</th>
+                    <th>Oficio de solicitación</th>
+                    <th>Oficio de aceptación</th>
+                    <th>Nombre de aceptación</th>
                 </tr>
                 </thead>
-                <tbody>
+                {
+                    !isLoading ?
+                    <tbody>
                     <tr>
-                        <td>Ricardo José Guevara Guzmán</td>
+                        {
+                            users.map((user)=>(
+                                <>
+                                    <td>{user.estudiante_id}</td>
+                                    <td>{user.reglamento}</td>
+                                    <td>{user.departamento_receptor}</td>
+                                    <td>{user.estudiante_id}</td>
+                                    <td>{user.fecha_inicio}</td>
+                                    <td>{user.fecha_final}</td>
+                                    <td>{user.estudiante_edad}</td>
+                                    <td>{user.estudiante_genero}</td>
+                                    <td>{user.estudiante_estado_civil}</td>
+                                    <td>{user.estudiante_fecha_nacimiento}</td>
+                                    <td>{user.estudiante_lugar_nacimiento}</td>
+                                    <td>{user.estudiante_idiomas}</td>
+                                    <td>{user.estudiante_domicilio}</td>
+                                    <td>{user.estudiante_codigo_postal}</td>
+                                    <td>{user.estudiante_alcaldia}</td>
+                                    <td>{user.estudiante_ciudad}</td>
+                                    <td>{user.estudiante_pais}</td>
+                                    <td>{user.estudiante_telefono_particular}</td>
+                                    <td>{user.estudiante_telefono_casa}</td>
+                                    <td>{user.estudiante_email}</td>
+                                    <td>{user.estudiante_escuela}</td>
+                                    <td>{user.estudiante_carrera}</td>
+                                    <td>{user.estudiante_promedio}</td>
+                                    <td>{user.estudiante_contacto_escuela}</td>
+                                    <td>
+                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_fotografia}`}>
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_calificaciones}`}>
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_certificado_medico}`}>
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_solicitacion}`}>
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_aceptacion}`}>
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>{user.estudiante_nombre_aceptacion}</td>
+                                </>
+                            ))
+                        }
                     </tr>
-                </tbody>
+                    </tbody>
+                    :
+                    null
+                }
                 </Table>
         </>
     )
