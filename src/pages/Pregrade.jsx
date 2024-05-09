@@ -117,27 +117,42 @@ export const Pregrade = ()=>{
                                     <td>{user.estudiante_promedio}</td>
                                     <td>{user.estudiante_contacto_escuela}</td>
                                     <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_fotografia}`}>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pre-grado/${user.estudiante_fotografia}`}
+                                        target="_blank"
+                                        >
                                             Descargar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_calificaciones}`}>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pre-grado/${user.estudiante_calificaciones}`}
+                                        target='_blank'
+                                        >
                                             Descargar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_certificado_medico}`}>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pre-grado/${user.estudiante_certificado_medico}`}
+                                        target='_blank'
+                                        >
                                             Descargar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_solicitacion}`}>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pre-grado/${user.estudiante_oficio_solicitacion}`}
+                                        target='_blank'
+                                        >
                                             Descargar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_aceptacion}`}>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pre-grado/${user.estudiante_oficio_aceptacion}`}
+                                        target="_blank"
+                                        >
                                             Descargar
                                         </a>
                                     </td>

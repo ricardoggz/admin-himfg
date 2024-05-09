@@ -13,7 +13,7 @@ export const Posgrade = ()=>{
     const [formData, setFormData] = useState(null)
     const [fileName, setFileName] = useState('')
     const [users, isLoading]= useFetch({
-        url: `${import.meta.env.VITE_BASE_URL}api/inscriptions/all-pregrade-inscriptions`
+        url: `${import.meta.env.VITE_BASE_URL}api/inscriptions/all-posgrade-inscriptions`
     })
     const randomFileName = ()=> {
         return `${uuidv4()}.pdf`
@@ -77,53 +77,38 @@ export const Posgrade = ()=>{
                 {
                     !isLoading ?
                     <tbody>
-                    <tr>
                         {
                             users.map((user)=>(
-                                <>
+                                <tr>
                                     <td>{user.estudiante_id}</td>
                                     <td>{user.reglamento}</td>
-                                    <td>{user.departamento_receptor}</td>
-                                    <td>{user.estudiante_id}</td>
-                                    <td>{user.fecha_inicio}</td>
-                                    <td>{user.fecha_final}</td>
-                                    <td>{user.estudiante_edad}</td>
-                                    <td>{user.estudiante_genero}</td>
-                                    <td>{user.estudiante_estado_civil}</td>
+                                    <td>{user.fecha_registro}</td>                                
+                                    <td>
+                                        <a
+                                        href={`https://archivos.him.edu.mx/inscripciones-pos-grado/${user.estudiante_fotografia}`}
+                                        target='_blank'
+                                        >
+                                            Descargar
+                                        </a>
+                                    </td>
+                                    <td>{user.estudiante_nombre}</td>
+                                    <td>{user.estudiante_nacionalidad}</td>
                                     <td>{user.estudiante_fecha_nacimiento}</td>
-                                    <td>{user.estudiante_lugar_nacimiento}</td>
-                                    <td>{user.estudiante_idiomas}</td>
-                                    <td>{user.estudiante_domicilio}</td>                                    
-                                    <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_fotografia}`}>
-                                            Descargar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_calificaciones}`}>
-                                            Descargar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_certificado_medico}`}>
-                                            Descargar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_solicitacion}`}>
-                                            Descargar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href={`https://archivos.him.edu.mx/${user.estudiante_oficio_aceptacion}`}>
-                                            Descargar
-                                        </a>
-                                    </td>
-                                    <td>{user.estudiante_nombre_aceptacion}</td>
-                                </>
+                                    <td>{user.estudiante_especialidad}</td>
+                                    <td>{user.estudiante_grado}</td>
+                                    <td>{user.estudiante_institucion_procedencia}</td>
+                                    <td>{user.telefono_jefatura_procedencia}</td>
+                                    <td>{user.fecha_inicio_periodo}</td>
+                                    <td>{user.fecha_termino_periodo}</td>
+                                    <td>{user.estudiante_servicio}</td>
+                                    <td>{user.estudiante_telefono_celular}</td>
+                                    <td>{user.estudiante_telefono_fijo}</td>
+                                    <td>{user.estudiante_domicilio}</td>
+                                    <td>{user.estudiante_correo}</td>
+                                    <td>{user.estudiante_telefono_familiar}</td>
+                                </tr>
                             ))
                         }
-                    </tr>
                     </tbody>
                     :
                     null
