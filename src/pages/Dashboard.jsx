@@ -8,6 +8,7 @@ import { CreateTest } from "./CreateTest"
 import { UserContext } from "../contexts/UserContext"
 import { CoursesTable, NavBar, CoursesOptions, AddCourse } from '../components'
 import { Pregrade } from "./Pregrade"
+import { Posgrade } from './Posgrade'
 
 export const Dashboard = ()=>{
     const { user } = useContext(UserContext)
@@ -80,6 +81,7 @@ export const Dashboard = ()=>{
                     </NavBar>
                     <Routes>
                         <Route path='/' element={<Pregrade/>}/>
+                        <Route path='posgrado' element={<Posgrade/>}/>
                     </Routes>
                 </>
             )

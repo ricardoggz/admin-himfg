@@ -32,7 +32,7 @@ export const NavBar = ({children})=>{
                     {
                       user && user.department_id === '4' ?
                       <li className="nav-item">
-                        <Link to='/dashboard' className="nav-link">
+                        <Link to='posgrado' className="nav-link">
                             Inscripciones posgrado
                         </Link>
                       </li>
