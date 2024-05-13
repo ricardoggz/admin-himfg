@@ -45,10 +45,58 @@ export const Pregrade = ()=>{
     const thStyle={
         width:'100%',
     }
+    if(users){
+        csvStudents=users.map((student)=>(
+            {
+                reglamento: student.reglamento,
+                departamento_receptor: student.departamento_receptor,
+                fecha_inicio: student.fecha_inicio,
+                fecha_final: student.fecha_final,
+                estudiante_nombre: student.estudiante_nombre,
+                estudiante_edad:student.estudiante_edad,
+                estudiante_genero:student.estudiante_genero,
+                estudiante_estado_civil: student.estudiante_estado_civil,
+                estudiante_fecha_nacimiento : student.estudiante_fecha_nacimiento ,
+                estudiante_lugar_nacimiento: student.estudiante_lugar_nacimiento,
+                estudiante_idiomas :student.estudiante_idiomas ,
+                estudiante_domicilio : student.estudiante_domicilio,
+                estudiante_codigo_postal: student.estudiante_codigo_postal,
+                estudiante_alcaldia:student.estudiante_alcaldia,
+                estudiante_ciudad: student.estudiante_ciudad,
+                estudiante_pais: student.estudiante_pais,
+                estudiante_telefono_particular: student.estudiante_telefono_particular,
+                estudiante_telefono_casa: student.estudiante_telefono_casa,
+                estudiante_email: student.estudiante_email,
+                estudiante_escuela: student.estudiante_escuela,
+                estudiante_carrera: student.estudiante_carrera,
+                estudiante_promedio: student.estudiante_promedio,
+                estudiante_contacto_escuela: student.estudiante_contacto_escuela,
+                estudiante_fotografia: `https://archivos.him.edu.mx/inscripciones-pre-grado/${student.estudiante_fotografia}`,
+                estudiante_calificaciones: `https://archivos.him.edu.mx/inscripciones-pre-grado/${student.estudiante_calificaciones}`,
+                estudiante_certificado_medico: `https://archivos.him.edu.mx/inscripciones-pre-grado/${student.estudiante_certificado_medico}`,
+                estudiante_oficio_solicitacion: `https://archivos.him.edu.mx/inscripciones-pre-grado/${student.estudiante_oficio_solicitacion}`,
+                estudiante_oficio_aceptacion: `https://archivos.him.edu.mx/inscripciones-pre-grado/${student.estudiante_oficio_aceptacion}`,
+                estudiante_nombre_aceptacion: student.estudiante_nombre_aceptacion
+            } 
+        ))
+    }
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
                 <h1>Inscripciones pregrado</h1>
+            </div>
+            <div className="d-flex justify-content-center pb-5">
+                {
+                csvStudents && csvStudents.length === 0 ?
+                <button disabled className="btn btn-secondary">Sin datos a exportar</button>
+                :
+                <CSVLink
+                    className='btn btn-success'
+                    data={csvStudents}
+                    filename="inscripcion-alumnos"
+                    >    
+                    Convertir datos a excel
+                </CSVLink>}
             </div>
             <Table variant="success" responsive striped>
                 <thead className="table-dark">

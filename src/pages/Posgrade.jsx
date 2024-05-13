@@ -45,10 +45,48 @@ export const Posgrade = ()=>{
     const thStyle={
         width:'100%',
     }
+    if(users){
+        csvStudents=users.map((student)=>(
+            {
+                reglamento: student.reglamento,
+                fecha_registro: student.fecha_registro,
+                estudiante_fotografia: `https://archivos.him.edu.mx/inscripciones-pos-grado/${student.estudiante_fotografia}`,
+                estudiante_nombre : student.estudiante_nombre,
+                estudiante_nacionalidad: student.estudiante_nacionalidad,
+                estudiante_fecha_nacimiento : student.estudiante_fecha_nacimiento,
+                estudiante_especialidad :student.estudiante_especialidad,
+                estudiante_grado:student.estudiante_grado,
+                estudiante_estado_civil: student.estudiante_estado_civil,
+                estudiante_institucion_procedencia: student.estudiante_institucion_procedencia,
+                telefono_jefatura_procedente :student.telefono_jefatura_procedente,
+                fecha_inicio_periodo : student.fecha_inicio_periodo,
+                fecha_termino_periodo: student.fecha_termino_periodo,
+                estudiante_servicio:student.estudiante_servicio,
+                estudiante_telefono_celular: student.estudiante_telefono_celular,
+                estudiante_telefono_fijo: student.estudiante_telefono_fijo,
+                estudiante_domicilio : student.estudiante_domicilio,
+                estudiante_correo: student.estudiante_correo,
+                estudiante_telefono_familiar : student.estudiante_telefono_familiar,
+            } 
+        ))
+    }
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
                 <h1>Inscripciones posgrado</h1>
+            </div>
+            <div className="d-flex justify-content-center pb-5">
+                {
+                csvStudents && csvStudents.length === 0 ?
+                <button disabled className="btn btn-secondary">Sin datos a exportar</button>
+                :
+                <CSVLink
+                    className='btn btn-success'
+                    data={csvStudents}
+                    filename="inscripcion-alumnos"
+                    >    
+                    Convertir datos a excel
+                </CSVLink>}
             </div>
             <Table variant="success" responsive striped>
                 <thead className="table-dark">
