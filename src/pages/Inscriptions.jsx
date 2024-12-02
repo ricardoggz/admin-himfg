@@ -100,6 +100,7 @@ export const Inscriptions = ()=>{
                     <th>Fotografía de documentación 1era parte</th>
                     <th>Fotografía de documentación 2da parte</th>
                     <th>Manera en la que toma el curso</th>
+                    <th>Validación de documentos</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -195,6 +196,11 @@ export const Inscriptions = ()=>{
                                 :
                                 null
                             }
+                            <td>
+                                <button className="btn btn-success">
+                                    Validar documentación
+                                </button>
+                            </td>
                         </tr>
                     ))
                     :
