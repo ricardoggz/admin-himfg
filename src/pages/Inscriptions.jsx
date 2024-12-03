@@ -19,7 +19,6 @@ export const Inscriptions = ()=>{
     const randomFileName = ()=> {
         return `${uuidv4()}.pdf`
     }
-    console.log(courses)
     const params = useParams()
     let id = parseInt(params.id)
     let filteredCourses
@@ -198,7 +197,7 @@ export const Inscriptions = ()=>{
                                 null
                             }
                             <td>
-                                <SendEmail />
+                                <SendEmail course={course}/>
                             </td>
                         </tr>
                     ))
