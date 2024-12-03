@@ -8,6 +8,7 @@ import { useFetch } from '../hooks'
 import { Loader } from "../components"
 import { uploadFile } from "../services"
 import axios from "axios"
+import { SendEmail } from "../components"
 
 export const Inscriptions = ()=>{
     const [formData, setFormData] = useState(null)
@@ -197,9 +198,7 @@ export const Inscriptions = ()=>{
                                 null
                             }
                             <td>
-                                <button className="btn btn-success">
-                                    Validar documentación
-                                </button>
+                                <SendEmail />
                             </td>
                         </tr>
                     ))
