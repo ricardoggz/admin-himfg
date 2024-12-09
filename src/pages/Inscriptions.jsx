@@ -62,6 +62,7 @@ export const Inscriptions = ()=>{
             uploadFile({file: formData.pdfFile, fileName:fileName})
         }
     }
+    console.log(courses)
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
@@ -196,9 +197,16 @@ export const Inscriptions = ()=>{
                                 :
                                 null
                             }
-                            <td>
-                                <SendEmail course={course}/>
-                            </td>
+                            {
+                                course.student_role !== 'EXTERNO' ?
+                                <td>
+                                    DOCUMENTACIÓN REVISADA (EXTERNO)
+                                </td>
+                                :
+                                <td>
+                                    <SendEmail course={course}/>
+                                </td>
+                            }
                         </tr>
                     ))
                     :
