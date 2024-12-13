@@ -198,7 +198,7 @@ export const Inscriptions = ()=>{
                                 null
                             }
                             {
-                                course.student_role !== 'EXTERNO' ?
+                                course.student_role === 'EXTERNO' ?
                                 <td>
                                     DOCUMENTACIÓN REVISADA (EXTERNO)
                                 </td>
