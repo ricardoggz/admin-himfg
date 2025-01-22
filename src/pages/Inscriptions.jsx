@@ -173,7 +173,7 @@ export const Inscriptions = ()=>{
                                 </>
                             }
                             {
-                                course.student_license_part_2 ?
+                                course.student_license_part_2 && course.student_license_part_2 !== 'undefined' ?
                                 <td>
                                     <a
                                     href={`${course.student_license_part_2}`}
@@ -197,16 +197,11 @@ export const Inscriptions = ()=>{
                                 :
                                 null
                             }
-                            {
-                                course.student_role === 'EXTERNO' ?
-                                <td>
-                                    DOCUMENTACIÓN REVISADA (EXTERNO)
-                                </td>
-                                :
+                            
                                 <td>
                                     <SendEmail course={course}/>
                                 </td>
-                            }
+                            
                         </tr>
                     ))
                     :
