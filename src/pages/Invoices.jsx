@@ -79,7 +79,7 @@ export const Invoices = ()=>{
                                 }
                             </td>
                             {
-                            !course.student_tax_data ? 
+                            !course.student_tax_data || course.student_tax_data === 'undefined'? 
                             <td>
                                 Sin documentos
                             </td>
