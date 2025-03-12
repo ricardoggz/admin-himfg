@@ -39,7 +39,8 @@ export const Inscriptions = ()=>{
                 nacionalidad:student.student_nationality,
                 procedencia:student.student_state,
                 monto: `${student.payment_amount}.00 mxn`,
-                referencia: student.payment_reference
+                referencia: student.payment_reference,
+                modalidad: student.payment_modality,
             } 
         ))
     }
@@ -62,7 +63,7 @@ export const Inscriptions = ()=>{
             uploadFile({file: formData.pdfFile, fileName:fileName})
         }
     }
-    console.log(courses)
+
     return (
         <>
             <div className="d-flex justify-content-center pb-5">
